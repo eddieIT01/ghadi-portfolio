@@ -30,7 +30,7 @@ let lenis;
 function initSmoothScroll() {
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false
@@ -104,27 +104,27 @@ function initCustomCursor() {
 
   // Magnetic Buttons Effect
   const magneticEls = document.querySelectorAll('[data-magnetic]');
+  const quickToMap = new Map();
   magneticEls.forEach((el) => {
+    const xTo = gsap.quickTo(el, 'x', { duration: 0.3, ease: 'power2.out' });
+    const yTo = gsap.quickTo(el, 'y', { duration: 0.3, ease: 'power2.out' });
+    const xReset = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+    const yReset = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'elastic.out(1, 0.3)' });
+    quickToMap.set(el, { xTo, yTo, xReset, yReset });
+
     el.addEventListener('mousemove', (e) => {
       const rect = el.getBoundingClientRect();
       const relX = e.clientX - rect.left - rect.width / 2;
       const relY = e.clientY - rect.top - rect.height / 2;
-
-      gsap.to(el, {
-        x: relX * 0.3,
-        y: relY * 0.3,
-        duration: 0.3,
-        ease: 'power2.out'
-      });
+      const q = quickToMap.get(el);
+      q.xTo(relX * 0.3);
+      q.yTo(relY * 0.3);
     });
 
     el.addEventListener('mouseleave', () => {
-      gsap.to(el, {
-        x: 0,
-        y: 0,
-        duration: 0.5,
-        ease: 'elastic.out(1, 0.3)'
-      });
+      const q = quickToMap.get(el);
+      q.xReset(0);
+      q.yReset(0);
     });
   });
 }
@@ -163,40 +163,48 @@ function initHeroCanvas() {
   function drawCanvas() {
     ctx.clearRect(0, 0, width, height);
 
-    // Draw connecting lines between close particles
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+    if (canvasVisible) {
+      // Draw connecting lines between close particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = dx * dx + dy * dy;
 
-        if (dist < 140) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(255, 94, 54, ${0.15 * (1 - dist / 140)})`;
-          ctx.lineWidth = 0.8;
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.stroke();
+          if (dist < 140 * 140) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255, 94, 54, ${0.15 * (1 - Math.sqrt(dist) / 140)})`;
+            ctx.lineWidth = 0.8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
         }
       }
+
+      // Draw particle dots
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fill();
+      });
     }
-
-    // Draw particle dots
-    particles.forEach((p) => {
-      p.x += p.vx;
-      p.y += p.vy;
-
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
-      ctx.fill();
-    });
 
     requestAnimationFrame(drawCanvas);
   }
+
+  let canvasVisible = true;
+  const canvasObserver = new IntersectionObserver((entries) => {
+    canvasVisible = entries[0].isIntersecting;
+  }, { threshold: 0 });
+  canvasObserver.observe(canvas);
 
   drawCanvas();
 }
@@ -480,6 +488,26 @@ function initContactAndUtilities() {
     });
   }
 
+  const copyPhoneBtn = document.getElementById('copy-phone-btn');
+  const copyPhoneText = document.getElementById('copy-phone-text');
+  const phoneAddr = document.getElementById('phone-number');
+
+  if (copyPhoneBtn && phoneAddr) {
+    copyPhoneBtn.addEventListener('click', () => {
+      const phone = phoneAddr.textContent.trim();
+      navigator.clipboard.writeText(phone).then(() => {
+        if (copyPhoneText) copyPhoneText.textContent = 'Copied!';
+        showToast('Phone number copied to clipboard!');
+
+        setTimeout(() => {
+          if (copyPhoneText) copyPhoneText.textContent = 'Copy';
+        }, 3000);
+      }).catch(() => {
+        showToast('Failed to copy. Please select manually.');
+      });
+    });
+  }
+
   function showToast(message) {
     if (!toast) return;
     if (toastMsg) toastMsg.textContent = message;
@@ -494,13 +522,20 @@ function initContactAndUtilities() {
 
   // Header Background Blur on Scroll
   const header = document.getElementById('main-header');
+  let headerTicking = false;
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
+    if (!headerTicking) {
+      requestAnimationFrame(() => {
+        if (window.scrollY > 50) {
+          header?.classList.add('scrolled');
+        } else {
+          header?.classList.remove('scrolled');
+        }
+        headerTicking = false;
+      });
+      headerTicking = true;
     }
-  });
+  }, { passive: true });
 
   // Current Year in Footer
   const yearEl = document.getElementById('year');
