@@ -1,0 +1,231 @@
+/* ==========================================================================
+   GHADI PORTFOLIO - ULTRA PREMIUM CUSTOM STYLES
+   ========================================================================== */
+
+/* Root & Theme Variables */
+:root {
+  --color-obsidian: #0A0A0C;
+  --color-surface: #131318;
+  --color-surface-hover: #1C1C23;
+  --color-paper: #F4F4F6;
+  --color-slate-400: #94A3B8;
+  --color-slate-300: #CBD5E1;
+  --color-neon-orange: #FF5E36;
+  --color-electric-violet: #7C3AED;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base Resets & Smooth Scrolling */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: var(--color-obsidian);
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: var(--color-obsidian);
+  color: var(--color-paper);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: #262630;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-orange);
+}
+
+/* Noise Overlay */
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Custom Magnetic Cursor */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-neon-orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 94, 54, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s, background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color-obsidian);
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-transform: uppercase;
+}
+
+.cursor-hover .cursor-follower {
+  width: 64px;
+  height: 64px;
+  background-color: var(--color-neon-orange);
+  border-color: var(--color-neon-orange);
+}
+
+.cursor-hover .cursor-text {
+  opacity: 1;
+}
+
+.cursor-hover .cursor-dot {
+  opacity: 0;
+}
+
+/* Utility Color Classes */
+.bg-obsidian { background-color: var(--color-obsidian); }
+.bg-surface { background-color: var(--color-surface); }
+.text-paper { color: var(--color-paper); }
+.text-neonOrange { color: var(--color-neon-orange); }
+.bg-neonOrange { background-color: var(--color-neon-orange); }
+.border-neonOrange { border-color: var(--color-neon-orange); }
+.text-electricViolet { color: var(--color-electric-violet); }
+.bg-electricViolet { background-color: var(--color-electric-violet); }
+.font-display { font-family: var(--font-display); }
+
+/* Glow Effects */
+.shadow-glow {
+  box-shadow: 0 0 25px rgba(255, 94, 54, 0.35);
+}
+
+.shadow-glow-violet {
+  box-shadow: 0 0 25px rgba(124, 58, 237, 0.35);
+}
+
+/* Header & Glass Navigation */
+#main-header.scrolled {
+  background-color: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-content {
+  animation: marquee 20s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+/* Cards & 3D Tilt */
+.project-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.project-card .card-inner {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .card-inner {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Interactive Pills */
+.skill-pill {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-pill:hover {
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* Filter Buttons Active State */
+.filter-btn {
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-btn.active {
+  background-color: var(--color-neon-orange);
+  color: var(--color-obsidian);
+}
+
+/* Modal Styling */
+#project-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#project-modal.active .modal-container {
+  transform: scale(1);
+}
+
+/* Hero Stagger Text Styling */
+.hero-text-line {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Magnetic Element Class */
+[data-magnetic] {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+/* Media Queries & Responsive Adjustments */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .cursor-dot, .cursor-follower {
+    display: none !important;
+  }
+}
