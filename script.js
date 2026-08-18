@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 6. Interactive Contact Copy Email & Utility Helpers
   initContactAndUtilities();
+
+  // 7. Mobile Menu Toggle
+  initMobileMenu();
 });
 
 /* ==========================================================================
@@ -47,14 +50,21 @@ function initSmoothScroll() {
 }
 
 /* ==========================================================================
-   2. CUSTOM MAGNETIC CURSOR & TRAIL LOGIC
-   ========================================================================== */
+    2. CUSTOM MAGNETIC CURSOR & TRAIL LOGIC
+    ========================================================================== */
 function initCustomCursor() {
   const cursorDot = document.getElementById('cursor-dot');
   const cursorFollower = document.getElementById('cursor-follower');
   const cursorText = document.getElementById('cursor-text');
 
   if (!cursorDot || !cursorFollower) return;
+
+  // Hide custom cursor on touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    cursorDot.style.display = 'none';
+    cursorFollower.style.display = 'none';
+    return;
+  }
 
   let mouseX = window.innerWidth / 2;
   let mouseY = window.innerHeight / 2;
@@ -297,7 +307,7 @@ const projectData = {
     client: "Local Business & Hospitality Partners",
     year: "2024",
     role: "Visual Designer & Creative Technologist",
-    description: "Drizzle is a comprehensive digital QR menu and visual hierarchy system built to bridge physical storefront touchpoints with fluid digital menu navigation. Traditional paper menus often lack immediate visual appeal or flexibility; Drizzle offers an ultra-sleek, mobile-first design system featuring instant visual category filtering, dynamic promotional highlights, and custom high-resolution QR physical table stands.",
+    description: "Drizzle is a comprehensive digital QR menu and visual hierarchy system built to bridge physical storefront touchpoints with fluid digital menu navigation. The goal was simple: make menu browsing feel instant on mobile while keeping the brand looking sharp. Traditional paper menus don't give you that flexibility—this one does.",
     highlights: [
       "Custom vector-crafted QR identity stands engineered for physical placement.",
       "Ultra-responsive mobile layout optimized for zero-latency menu browsing.",
@@ -313,7 +323,7 @@ const projectData = {
     client: "Concept Sports Club / Competitive League",
     year: "2024",
     role: "Art Director & Apparel Graphic Designer",
-    description: "A custom sports kit and conceptual team identity design engineered with surgical visual precision. Featuring custom sleeve numbering typography and an aggressive front-shorts wolf motif layout. Designed for maximum visibility both on pitch and in digital promotional social feeds.",
+    description: "Custom sports kit design and conceptual team branding that works as hard as the players do. Every placement, number, and motif was considered for real-world printing and on-pitch visibility.",
     highlights: [
       "Dynamic sleeve numbering with custom high-contrast geometric typography.",
       "Front-shorts wolf motif layout tailored for seamless garment sublimated printing.",
@@ -329,7 +339,7 @@ const projectData = {
     client: "Collaborative Lifestyle Brand Concept",
     year: "2024",
     role: "Brand Strategist & Art Director",
-    description: "A comprehensive brand identity and editorial design system created for an upcoming collaborative boutique lifestyle venture. Combining minimalist editorial typography, rich tactile texture overlays, and modular layout systems for physical lookbooks, digital e-commerce, and premium packaging.",
+    description: "A comprehensive brand identity and editorial design system for an upcoming collaborative boutique lifestyle venture. The brief was quiet luxury—minimalist typography, tactile textures, and layouts that feel as good in print as they do on screen.",
     highlights: [
       "Editorial print and digital lookbook systems with strict mathematical grid layouts.",
       "Bespoke typographic pairing creating an undeniable sense of quiet luxury.",
@@ -345,7 +355,7 @@ const projectData = {
     client: "Original Creative Works",
     year: "2024",
     role: "Creative Writer & Motion Copywriter",
-    description: "An exploration into digital worldbuilding through creative copywriting, original poetry, and rhythmic motion graphics. Designed specifically to test narrative pacing across modern short-form video formats (CapCut workflows) and editorial social carousels.",
+    description: "Creative copywriting and motion design experiments focused on short-form video and social carousels. Testing what makes people stop scrolling, read, and actually share.",
     highlights: [
       "Original poetic copy structured specifically for visual kinetic typography.",
       "Custom video pacing workflows pairing audio soundscapes with word reveals.",
@@ -542,4 +552,42 @@ function initContactAndUtilities() {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
+}
+
+/* ==========================================================================
+    7. MOBILE MENU TOGGLE
+    ========================================================================== */
+function initMobileMenu() {
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const menuClose = document.getElementById('mobile-menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = mobileMenu?.querySelectorAll('.mobile-nav-link');
+
+  const openMenu = () => {
+    if (!mobileMenu) return;
+    mobileMenu.classList.add('active');
+    mobileMenu.style.pointerEvents = 'auto';
+    document.body.style.overflow = 'hidden';
+    if (lenis) lenis.stop();
+  };
+
+  const closeMenu = () => {
+    if (!mobileMenu) return;
+    mobileMenu.classList.remove('active');
+    mobileMenu.style.pointerEvents = 'none';
+    document.body.style.overflow = '';
+    if (lenis) lenis.start();
+  };
+
+  menuToggle?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  mobileLinks?.forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+      closeMenu();
+    }
+  });
 }

@@ -228,4 +228,82 @@ body {
   .cursor-dot, .cursor-follower {
     display: none !important;
   }
+
+  /* Mobile Menu Panel */
+  #mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(10, 10, 12, 0.97);
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+  #mobile-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-nav-link {
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* Better mobile spacing */
+  section {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .project-card {
+    border-radius: 1.5rem;
+  }
+
+  .project-card .card-inner {
+    border-radius: 1rem;
+  }
+
+  /* Improve touch targets */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Project image placeholders */
+  .project-image-placeholder {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Ensure text is readable on small screens */
+  p, .text-slate-400, .text-slate-300 {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* Better filter buttons on mobile */
+  .filter-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.7rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Touch device cursor hide */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-dot, .cursor-follower {
+    display: none !important;
+  }
 }
