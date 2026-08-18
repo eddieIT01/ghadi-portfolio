@@ -241,18 +241,21 @@ function initGSAPAnimations() {
 
   // ScrollTrigger Animations for Sections
   if (typeof ScrollTrigger !== 'undefined') {
-    // Project Cards Entrance
-    gsap.from('.project-card', {
-      scrollTrigger: {
-        trigger: '#work',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
-      y: 60,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: 'power3.out'
+    // Project Cards Scroll Showcase - animate in as user scrolls
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        },
+        y: 80,
+        opacity: 0,
+        duration: 1,
+        delay: index % 2 === 0 ? 0 : 0.15,
+        ease: 'power3.out'
+      });
     });
 
     // Skill Category Cards Entrance
