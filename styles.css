@@ -221,6 +221,15 @@ body {
   transform: scale(1);
 }
 
+#project-modal .modal-container {
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
 /* Hero Stagger Text Styling */
 .hero-text-line {
   display: inline-block;

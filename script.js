@@ -509,6 +509,7 @@ function initProjectShowcase() {
         }
 
         modal.classList.add('active');
+        document.body.classList.add('modal-open');
         if (lenis) lenis.stop();
       }
     });
@@ -517,6 +518,7 @@ function initProjectShowcase() {
   function closeModal() {
     if (modal) {
       modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
       if (lenis) lenis.start();
     }
   }
