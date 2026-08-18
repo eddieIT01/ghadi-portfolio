@@ -56,7 +56,10 @@
   <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300" id="main-header">
     <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
       <a href="#hero" class="brand-logo flex items-center gap-3 group" data-magnetic>
-        <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-electricViolet to-neonOrange flex items-center justify-center text-obsidian font-extrabold text-lg shadow-glow transition-transform duration-300 group-hover:scale-110">G</span>
+        <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-electricViolet to-neonOrange flex items-center justify-center text-obsidian font-extrabold text-lg shadow-glow transition-transform duration-300 group-hover:scale-110 overflow-hidden">
+          <img src="images/logo.png" alt="GHADI" class="w-full h-full object-cover hidden" id="logo-img" onerror="this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden')">
+          <span id="logo-fallback">G</span>
+        </span>
         <span class="font-display font-bold text-xl tracking-tight text-paper group-hover:text-neonOrange transition-colors">GHADI<span class="text-neonOrange">.™</span></span>
       </a>
 
@@ -144,13 +147,13 @@
         <div class="mt-20 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6 text-xs font-mono text-slate-400">
           <div class="flex items-center gap-8">
             <div>
-              <span class="text-white font-bold text-lg block font-sans">04+</span>
-              <span>Core Disciplines</span>
+              <span class="text-white font-bold text-lg block font-sans">07+</span>
+              <span>Projects Delivered</span>
             </div>
             <div class="w-px h-8 bg-white/10"></div>
             <div>
-              <span class="text-white font-bold text-lg block font-sans">100%</span>
-              <span>Agile Execution</span>
+              <span class="text-white font-bold text-lg block font-sans">04+</span>
+              <span>Core Disciplines</span>
             </div>
             <div class="w-px h-8 bg-white/10"></div>
             <div>
@@ -170,18 +173,22 @@
     <!-- Marquee Banner -->
     <div class="w-full bg-neonOrange text-obsidian py-4 overflow-hidden border-y border-neonOrange/30 select-none">
       <div class="marquee-content flex gap-12 font-display font-extrabold text-lg sm:text-xl tracking-wider uppercase whitespace-nowrap">
+        <span>JERSEY DESIGN</span> <span class="text-obsidian/40">•</span>
+        <span>QR MENU SYSTEMS</span> <span class="text-obsidian/40">•</span>
+        <span>WEB DESIGN</span> <span class="text-obsidian/40">•</span>
+        <span>AI AGENCIES</span> <span class="text-obsidian/40">•</span>
+        <span>INTERACTIVE TOOLS</span> <span class="text-obsidian/40">•</span>
+        <span>E-COMMERCE</span> <span class="text-obsidian/40">•</span>
+        <span>UX RESEARCH</span> <span class="text-obsidian/40">•</span>
         <span>BRAND IDENTITY</span> <span class="text-obsidian/40">•</span>
-        <span>UI/UX SYSTEMS</span> <span class="text-obsidian/40">•</span>
-        <span>FRONT-END DEV</span> <span class="text-obsidian/40">•</span>
-        <span>MOTION DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>DIGITAL STORYTELLING</span> <span class="text-obsidian/40">•</span>
-        <span>CREATIVE CODE</span> <span class="text-obsidian/40">•</span>
+        <span>JERSEY DESIGN</span> <span class="text-obsidian/40">•</span>
+        <span>QR MENU SYSTEMS</span> <span class="text-obsidian/40">•</span>
+        <span>WEB DESIGN</span> <span class="text-obsidian/40">•</span>
+        <span>AI AGENCIES</span> <span class="text-obsidian/40">•</span>
+        <span>INTERACTIVE TOOLS</span> <span class="text-obsidian/40">•</span>
+        <span>E-COMMERCE</span> <span class="text-obsidian/40">•</span>
+        <span>UX RESEARCH</span> <span class="text-obsidian/40">•</span>
         <span>BRAND IDENTITY</span> <span class="text-obsidian/40">•</span>
-        <span>UI/UX SYSTEMS</span> <span class="text-obsidian/40">•</span>
-        <span>FRONT-END DEV</span> <span class="text-obsidian/40">•</span>
-        <span>MOTION DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>DIGITAL STORYTELLING</span> <span class="text-obsidian/40">•</span>
-        <span>CREATIVE CODE</span> <span class="text-obsidian/40">•</span>
       </div>
     </div>
 
@@ -199,48 +206,85 @@
         <div class="flex flex-wrap gap-2 bg-surface/80 p-1.5 rounded-full border border-white/10 self-start md:self-auto">
           <button class="filter-btn active px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 bg-neonOrange text-obsidian" data-filter="all">All Projects</button>
           <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="brand">Brand & Identity</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="digital">Digital & Systems</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="motion">Motion & Storytelling</button>
+          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="digital">Digital & Web</button>
+          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="interactive">Interactive & UX</button>
         </div>
       </div>
 
       <!-- Projects Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
 
-        <!-- Project 1: Drizzle -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-neonOrange/50 hover:shadow-2xl" data-category="digital brand" data-project="drizzle">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-8">
-            <!-- Simulated Visual Preview -->
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/40 via-obsidian to-orange-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+        <!-- Project 1: Northern Lights Jersey Design -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-neonOrange/50 hover:shadow-2xl" data-category="brand" data-project="northern-lights">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-950/40 via-obsidian to-blue-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
 
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-6 bg-obsidian/60 backdrop-blur-md">
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
               <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-neonOrange/20 text-neonOrange border border-neonOrange/30">DIGITAL QR SYSTEM</span>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-neonOrange/20 text-neonOrange border border-neonOrange/30">JERSEY DESIGN</span>
                 <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-neonOrange group-hover:text-obsidian transition-colors duration-300">
                   <i class="ri-arrow-right-up-line text-lg"></i>
                 </div>
               </div>
 
-              <!-- Graphical Element Simulation -->
-              <div class="my-auto py-6 flex items-center justify-center gap-6">
-                <div class="w-24 h-24 rounded-2xl bg-white p-3 flex flex-col items-center justify-center text-obsidian shadow-2xl group-hover:rotate-3 transition-transform duration-500">
-                  <i class="ri-qr-code-line text-5xl"></i>
-                  <span class="text-[9px] font-mono font-bold uppercase tracking-tighter mt-1">SCAN MENU</span>
+              <div class="my-auto py-4 flex items-center justify-center">
+                <div class="relative w-28 h-28 bg-gradient-to-tr from-cyan-600 to-blue-500 rounded-2xl flex items-center justify-center text-white font-extrabold shadow-xl group-hover:-rotate-3 transition-transform duration-500">
+                  <i class="ri-shield-flash-line text-5xl"></i>
+                  <div class="absolute -bottom-2 right-2 text-[10px] font-mono bg-obsidian/80 px-2 py-0.5 rounded">NL</div>
                 </div>
-                <div class="flex-1 text-left space-y-2">
+              </div>
+
+              <img src="images/northern-lights.png" alt="Northern Lights Jersey" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
+
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+                <span>NORTHERN LIGHTS FC</span>
+                <span>2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-neonOrange transition-colors">Northern Lights — Jersey Design</h3>
+              <span class="text-xs font-mono text-slate-400">01</span>
+            </div>
+            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
+              Complete football jersey design for Northern Lights FC. Custom crest, typography, and color system built for real kit production and team identity.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Apparel Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Team Branding</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Vector Crest</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Drizzle QR Menu -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-electricViolet/50 hover:shadow-2xl" data-category="digital" data-project="drizzle">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/40 via-obsidian to-orange-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-electricViolet/20 text-purple-300 border border-electricViolet/30">QR MENU SYSTEM</span>
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-electricViolet group-hover:text-white transition-colors duration-300">
+                  <i class="ri-arrow-right-up-line text-lg"></i>
+                </div>
+              </div>
+
+              <div class="my-auto py-4 flex items-center justify-center gap-4">
+                <div class="w-20 h-20 rounded-xl bg-white p-2.5 flex flex-col items-center justify-center text-obsidian shadow-2xl group-hover:rotate-3 transition-transform duration-500">
+                  <i class="ri-qr-code-line text-4xl"></i>
+                  <span class="text-[8px] font-mono font-bold uppercase tracking-tighter mt-1">SCAN MENU</span>
+                </div>
+                <div class="flex-1 text-left space-y-2 hidden sm:block">
                   <div class="h-2 w-3/4 rounded bg-white/30"></div>
                   <div class="h-2 w-1/2 rounded bg-white/20"></div>
                   <div class="h-2 w-5/6 rounded bg-neonOrange/60"></div>
                 </div>
               </div>
 
-              <!-- Portfolio Image Placeholder - Drop screenshot here -->
-              <div class="project-image-placeholder relative mt-4 w-full aspect-video rounded-xl border-2 border-dashed border-white/20 bg-white/5 flex items-center justify-center overflow-hidden group/placeholder">
-                <div class="text-center space-y-2">
-                  <i class="ri-image-add-line text-3xl text-white/30"></i>
-                  <p class="text-[10px] font-mono text-white/30 uppercase tracking-wider">Add Screenshot</p>
-                </div>
-              </div>
+              <img src="images/drizzle.png" alt="Drizzle QR Menu" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
 
               <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
                 <span>LOCAL BUSINESS HYBRID</span>
@@ -251,162 +295,85 @@
 
           <div class="p-6">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-neonOrange transition-colors">Drizzle — Digital QR System</h3>
-              <span class="text-xs font-mono text-slate-400">01</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Custom digital QR code system and layout design highlighting menu layouts, visual hierarchy, and seamlessly bridging physical and digital touchpoints for local businesses.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Layout Systems</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Digital-Physical Bridge</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">UX & Visual Hierarchy</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2: Athletic Apparel & Team Branding -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-electricViolet/50 hover:shadow-2xl" data-category="brand" data-project="athletic">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-8">
-            <div class="absolute inset-0 bg-gradient-to-br from-purple-950/40 via-obsidian to-violet-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-6 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-electricViolet/20 text-purple-300 border border-electricViolet/30">SPORTS KIT & BRANDING</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-electricViolet group-hover:text-white transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <!-- Graphic Mockup Simulation -->
-              <div class="my-auto py-4 flex items-center justify-center gap-6">
-                <div class="relative w-32 h-28 bg-gradient-to-tr from-violet-600 to-indigo-500 rounded-xl flex items-center justify-center text-white font-extrabold shadow-xl group-hover:-rotate-3 transition-transform duration-500">
-                  <div class="absolute -top-2 left-2 px-2 py-0.5 bg-neonOrange text-obsidian text-[10px] font-mono rounded font-bold">SLEEVE #07</div>
-                  <i class="ri-shield-flash-line text-4xl"></i>
-                  <div class="absolute bottom-2 right-2 text-[10px] font-mono opacity-80">WOLF MOTIF</div>
-                </div>
-              </div>
-
-              <!-- Portfolio Image Placeholder - Drop screenshot here -->
-              <div class="project-image-placeholder relative mt-4 w-full aspect-video rounded-xl border-2 border-dashed border-white/20 bg-white/5 flex items-center justify-center overflow-hidden group/placeholder">
-                <div class="text-center space-y-2">
-                  <i class="ri-image-add-line text-3xl text-white/30"></i>
-                  <p class="text-[10px] font-mono text-white/30 uppercase tracking-wider">Add Screenshot</p>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>CONCEPT APPAREL SYSTEM</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-electricViolet transition-colors">Athletic Apparel & Team Branding</h3>
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-electricViolet transition-colors">Drizzle — Digital QR Menu</h3>
               <span class="text-xs font-mono text-slate-400">02</span>
             </div>
             <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Custom sports kit design and conceptual team branding featuring precise visual placements, dynamic sleeve numbering typography, and custom front-shorts wolf motif layouts.
+              Mobile-first QR menu system with category filtering, promotional highlights, and physical QR table stands. Built for real hospitality use.
             </p>
             <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Apparel Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Visual Placements</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Custom Crests</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Layout Systems</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Mobile UX</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Visual Hierarchy</span>
             </div>
           </div>
         </div>
 
-        <!-- Project 3: Boutique Brand Concept & Ideation -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl" data-category="brand digital" data-project="boutique">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-8">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/30 via-obsidian to-yellow-900/20 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+        <!-- Project 3: Cogent AI Agency -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-cyan-400/50 hover:shadow-2xl" data-category="digital" data-project="cogent-ai">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-obsidian to-slate-800/40 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
 
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-6 bg-obsidian/60 backdrop-blur-md">
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
               <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">LIFESTYLE IDENTITY</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-amber-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <!-- Graphic Mockup Simulation -->
-              <div class="my-auto py-4 flex items-center justify-center gap-4">
-                <div class="w-20 h-28 border-2 border-amber-200/40 rounded-lg p-2 flex flex-col justify-between text-amber-200 group-hover:-translate-y-2 transition-transform duration-500">
-                  <span class="text-[8px] font-mono tracking-widest uppercase">VOL. 01</span>
-                  <span class="font-display font-bold text-xs tracking-tighter">BOUTIQUE</span>
-                  <div class="w-full h-0.5 bg-amber-200/40"></div>
-                </div>
-                <div class="w-20 h-28 bg-amber-100/10 rounded-lg p-2 border border-white/10 flex flex-col justify-between text-white group-hover:translate-y-2 transition-transform duration-500">
-                  <i class="ri-compass-3-line text-2xl text-amber-300"></i>
-                  <span class="text-[9px] font-mono text-slate-300">LOOKBOOK</span>
-                </div>
-              </div>
-
-              <!-- Portfolio Image Placeholder - Drop screenshot here -->
-              <div class="project-image-placeholder relative mt-4 w-full aspect-video rounded-xl border-2 border-dashed border-white/20 bg-white/5 flex items-center justify-center overflow-hidden group/placeholder">
-                <div class="text-center space-y-2">
-                  <i class="ri-image-add-line text-3xl text-white/30"></i>
-                  <p class="text-[10px] font-mono text-white/30 uppercase tracking-wider">Add Screenshot</p>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>COLLABORATIVE BRAND</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-amber-300 transition-colors">Boutique Brand Concept & Ideation</h3>
-              <span class="text-xs font-mono text-slate-400">03</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Comprehensive visual identity, editorial layout systems, and artistic positioning for an upcoming collaborative lifestyle brand built around modern minimalism and tactile luxury.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Brand Identity</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Editorial Layout</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Concept Packaging</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4: Digital Storytelling & Worldbuilding -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-cyan-400/50 hover:shadow-2xl" data-category="motion" data-project="storytelling">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-8">
-            <div class="absolute inset-0 bg-gradient-to-br from-cyan-950/40 via-obsidian to-teal-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-6 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30">NARRATIVE & MOTION</span>
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30">AI AUTOMATION</span>
                 <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-cyan-400 group-hover:text-obsidian transition-colors duration-300">
                   <i class="ri-arrow-right-up-line text-lg"></i>
                 </div>
               </div>
 
-              <!-- Graphic Mockup Simulation -->
-              <div class="my-auto py-4 text-center px-4">
-                <p class="font-serif italic text-lg text-cyan-200/90 mb-2">"Words woven into visual rhythms..."</p>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-xs font-mono text-cyan-300">
-                  <i class="ri-play-fill text-xs animate-ping"></i>
-                  <span>ORIGINAL POETRY & SOCIAL MEDIA FORMATS</span>
-                </div>
+              <div class="my-auto py-4 text-center">
+                <div class="text-3xl font-display font-extrabold text-white tracking-tighter">COGENT</div>
+                <div class="text-[10px] font-mono text-cyan-300 mt-1">ENTERPRISE AI AUTOMATION</div>
               </div>
 
-              <!-- Portfolio Image Placeholder - Drop screenshot here -->
-              <div class="project-image-placeholder relative mt-4 w-full aspect-video rounded-xl border-2 border-dashed border-white/20 bg-white/5 flex items-center justify-center overflow-hidden group/placeholder">
-                <div class="text-center space-y-2">
-                  <i class="ri-image-add-line text-3xl text-white/30"></i>
-                  <p class="text-[10px] font-mono text-white/30 uppercase tracking-wider">Add Screenshot</p>
-                </div>
-              </div>
+              <img src="images/cogent-ai.png" alt="Cogent AI Agency" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
 
               <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>DIGITAL WORLDBUILDING</span>
+                <span>LIVE WEBSITE</span>
+                <span>2025</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-cyan-300 transition-colors">Cogent — AI Agency Website</h3>
+              <span class="text-xs font-mono text-slate-400">03</span>
+            </div>
+            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
+              Full website design and build for an enterprise AI automation partner. Dark, technical aesthetic with structured sections for capabilities, process, and engagement.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Web Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Front-End Dev</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Technical Branding</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Dawnlight Diary -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl" data-category="interactive" data-project="dawnlight-diary">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/40 via-obsidian to-yellow-900/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">DND WORLD BUILDING</span>
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-amber-400 group-hover:text-obsidian transition-colors duration-300">
+                  <i class="ri-arrow-right-up-line text-lg"></i>
+                </div>
+              </div>
+
+              <div class="my-auto py-4 text-center">
+                <div class="text-2xl font-display font-bold text-amber-200 tracking-tight">Dawnlight Diary</div>
+                <div class="text-[10px] font-mono text-amber-300/80 mt-1">CHARACTER BOOK SHELVES</div>
+              </div>
+
+              <img src="images/dawnlight-diary.png" alt="Dawnlight Diary" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
+
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+                <span>INTERACTIVE DND TOOL</span>
                 <span>2024</span>
               </div>
             </div>
@@ -414,16 +381,156 @@
 
           <div class="p-6">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-cyan-300 transition-colors">Digital Storytelling & Worldbuilding</h3>
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-amber-300 transition-colors">Dawnlight Diary</h3>
               <span class="text-xs font-mono text-slate-400">04</span>
             </div>
             <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Creative copywriting, original poetry, and narrative structuring seamlessly translated into dynamic digital storytelling and high-engagement social media visual formats.
+              D&D-inspired interactive website where campaigns discover character bookshelves, backstories, and notes. Built with saved data persistence for private campaigns.
             </p>
             <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Creative Copywriting</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Original Poetry</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Social Formats</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Interactive Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Data Persistence</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">World Building</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: Spoiler-Free Sanctuary -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-emerald-400/50 hover:shadow-2xl" data-category="interactive" data-project="spoiler-free-sanctuary">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-950/40 via-obsidian to-teal-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">UNIVERSITY PROJECT</span>
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-emerald-400 group-hover:text-obsidian transition-colors duration-300">
+                  <i class="ri-arrow-right-up-line text-lg"></i>
+                </div>
+              </div>
+
+              <div class="my-auto py-4 text-center px-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-xs font-mono text-emerald-300">
+                  <i class="ri-shield-check-line text-xs"></i>
+                  <span>SPOILER-FREE GUIDES</span>
+                </div>
+                <p class="text-emerald-200/80 text-xs mt-3 font-mono">For story-driven games like The Last of Us</p>
+              </div>
+
+              <img src="images/spoiler-free-sanctuary.png" alt="Spoiler-Free Sanctuary" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
+
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+                <span>GAMING UX RESEARCH</span>
+                <span>2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-emerald-300 transition-colors">Spoiler-Free Sanctuary</h3>
+              <span class="text-xs font-mono text-slate-400">05</span>
+            </div>
+            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
+              University project helping gamers through story-driven games without spoilers. Progressive reveal system that only unlocks content after story milestones.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">UX Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Progressive Disclosure</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Gaming</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: Gaming Tech Store -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-fuchsia-400/50 hover:shadow-2xl" data-category="digital" data-project="gaming-tech-store">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-950/40 via-obsidian to-purple-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-fuchsia-400/20 text-fuchsia-300 border border-fuchsia-400/30">E-COMMERCE</span>
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-fuchsia-400 group-hover:text-obsidian transition-colors duration-300">
+                  <i class="ri-arrow-right-up-line text-lg"></i>
+                </div>
+              </div>
+
+              <div class="my-auto py-4 flex items-center justify-center gap-3">
+                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-fuchsia-600 to-purple-600 flex items-center justify-center text-white font-extrabold shadow-xl group-hover:-rotate-6 transition-transform duration-500">
+                  <i class="ri-gamepad-line text-3xl"></i>
+                </div>
+                <div class="text-left">
+                  <div class="text-sm font-display font-bold text-white">Stormbreaker</div>
+                  <div class="text-[10px] font-mono text-fuchsia-300">9000 SERIES</div>
+                </div>
+              </div>
+
+              <img src="images/gaming-tech-store.png" alt="Gaming Tech Store" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
+
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+                <span>CYBERPUNK STORE</span>
+                <span>2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-fuchsia-300 transition-colors">Gaming Tech Store</h3>
+              <span class="text-xs font-mono text-slate-400">06</span>
+            </div>
+            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
+              Cyberpunk-themed gaming tech store with custom builder tool, product showcases, and community hub. Full e-commerce front-end experience.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">E-Commerce</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Product Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Interactive UI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 7: MoodCook -->
+        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-rose-400/50 hover:shadow-2xl" data-category="digital" data-project="moodcook">
+          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
+            <div class="absolute inset-0 bg-gradient-to-br from-rose-950/40 via-obsidian to-orange-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
+
+            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
+              <div class="flex justify-between items-start">
+                <span class="text-xs font-mono px-3 py-1 rounded-full bg-rose-400/20 text-rose-300 border border-rose-400/30">FOOD & MOOD</span>
+                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-rose-400 group-hover:text-obsidian transition-colors duration-300">
+                  <i class="ri-arrow-right-up-line text-lg"></i>
+                </div>
+              </div>
+
+              <div class="my-auto py-4 flex items-center justify-center gap-3">
+                <div class="text-4xl">🍳</div>
+                <div class="text-left">
+                  <div class="text-sm font-display font-bold text-white">MoodCook</div>
+                  <div class="text-[10px] font-mono text-rose-300">RECIPES BY EMOTION</div>
+                </div>
+              </div>
+
+              <img src="images/moodcook.png" alt="MoodCook" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl" onerror="this.classList.add('hidden')">
+
+              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+                <span>UNIVERSITY PROJECT</span>
+                <span>2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-rose-300 transition-colors">MoodCook</h3>
+              <span class="text-xs font-mono text-slate-400">07</span>
+            </div>
+            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
+              Food discovery platform matching recipes to emotional states. Full recipe cards, blog system, and mood-based navigation built as a university concept.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Web Design</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Content System</span>
+              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">University Project</span>
             </div>
           </div>
         </div>
@@ -517,7 +624,7 @@
           </h2>
 
           <p class="text-slate-300 text-base leading-relaxed">
-            I'm <strong class="text-white">Ghadi</strong> — a creative technologist who actually does both the design and the code. No hand-offs, no miscommunication, just work that gets built right the first time.
+            I'm <strong class="text-white">Ghadi</strong> — a creative technologist who does both the design and the code. No hand-offs, no miscommunication, just work that gets built right the first time.
           </p>
 
           <div class="p-6 rounded-2xl bg-surface border border-white/10 space-y-4">
@@ -528,7 +635,7 @@
               <div>
                 <h4 class="font-bold text-white text-sm mb-1">IT background means I get how things actually work</h4>
                 <p class="text-xs text-slate-400 leading-relaxed">
-                  My degree taught me how systems, databases, and code structures fit together. That means the designs I make don't just look good—they're practical to build and easy to maintain.
+                  My degree taught me how systems, databases, and code structures fit together. The designs I make don't just look good—they're practical to build and easy to maintain.
                 </p>
               </div>
             </div>
@@ -588,7 +695,7 @@
 
         <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
           <span class="text-xs font-mono uppercase tracking-widest text-neonOrange inline-block px-4 py-1.5 rounded-full bg-neonOrange/10 border border-neonOrange/20">
-            // READY TO ELEVATE YOUR BRAND?
+            READY TO ELEVATE YOUR BRAND?
           </span>
 
           <h2 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none">
@@ -653,7 +760,7 @@
   <footer class="py-8 px-6 border-t border-white/10 text-xs font-mono text-slate-400 relative z-10">
     <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        © <span id="year">2025</span> Ghadi.™ All rights reserved. Designed & Coded with GSAP.
+        © <span id="year">2025</span> Ghadi.™ All rights reserved.
       </div>
       <div class="flex items-center gap-6">
         <a href="#hero" class="hover:text-neonOrange transition-colors flex items-center gap-1">

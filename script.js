@@ -300,69 +300,124 @@ function initGSAPAnimations() {
    5. FEATURED WORK SHOWCASE FILTER & MODAL SYSTEM
    ========================================================================== */
 const projectData = {
+  "northern-lights": {
+    title: "Northern Lights — Jersey Design & Team Branding",
+    category: "Football Kit Design & Identity",
+    tagline: "Complete jersey system for Northern Lights FC.",
+    client: "Northern Lights FC",
+    year: "2024",
+    role: "Apparel Designer & Brand Artist",
+    description: "Full football jersey design package including home kit, crest design, custom typography, and color system. Built for real kit production with print-ready assets.",
+    highlights: [
+      "Custom team crest and badge design.",
+      "Complete home kit layout with sleeve, chest, and back placements.",
+      "Typography system for player names and numbers.",
+      "Color palette and brand guidelines for consistent identity."
+    ],
+    tags: ["Apparel Design", "Team Branding", "Vector Crest", "Kit Layout"],
+    link: null
+  },
   drizzle: {
-    title: "Drizzle — Custom Digital QR Code System & Layout Design",
-    category: "Digital QR System & Local Business Layouts",
-    tagline: "Bridging physical hospitality menus with dynamic digital order touchpoints.",
+    title: "Drizzle — Digital QR Menu System",
+    category: "QR Menu & Local Business Design",
+    tagline: "Bridging physical hospitality with fluid digital menu navigation.",
     client: "Local Business & Hospitality Partners",
     year: "2024",
     role: "Visual Designer & Creative Technologist",
-    description: "Drizzle is a comprehensive digital QR menu and visual hierarchy system built to bridge physical storefront touchpoints with fluid digital menu navigation. The goal was simple: make menu browsing feel instant on mobile while keeping the brand looking sharp. Traditional paper menus don't give you that flexibility—this one does.",
+    description: "Drizzle is a comprehensive digital QR menu and visual hierarchy system built to bridge physical storefront touchpoints with fluid digital menu navigation. Mobile-first design with instant category filtering and dynamic promotional highlights.",
     highlights: [
-      "Custom vector-crafted QR identity stands engineered for physical placement.",
-      "Ultra-responsive mobile layout optimized for zero-latency menu browsing.",
-      "Clear visual hierarchy increasing user engagement and high-margin item visibility by 35%.",
-      "Seamless brand kit guidelines including custom typography scale and color schemes."
+      "Custom QR identity stands engineered for physical placement.",
+      "Ultra-responsive mobile layout optimized for zero-latency browsing.",
+      "Clear visual hierarchy increasing engagement by 35%.",
+      "Brand kit guidelines with custom typography scale and color schemes."
     ],
-    tags: ["Layout Systems", "Visual Hierarchy", "Digital-Physical Bridge", "Canva Pro Assets", "UI/UX"]
+    tags: ["Layout Systems", "Visual Hierarchy", "Digital-Physical Bridge", "Mobile UX"],
+    link: null
   },
-  athletic: {
-    title: "Athletic Apparel & Conceptual Team Branding",
-    category: "Sports Kit Design & Precision Visual Assets",
-    tagline: "Bold typography meets aggressive graphical motifs for modern sportswear.",
-    client: "Concept Sports Club / Competitive League",
-    year: "2024",
-    role: "Art Director & Apparel Graphic Designer",
-    description: "Custom sports kit design and conceptual team branding that works as hard as the players do. Every placement, number, and motif was considered for real-world printing and on-pitch visibility.",
+  "cogent-ai": {
+    title: "Cogent — AI Agency Website",
+    category: "Enterprise AI Automation Website",
+    tagline: "Full website design and build for an enterprise AI automation partner.",
+    client: "Cogent Systems",
+    year: "2025",
+    role: "Web Designer & Front-End Developer",
+    description: "Complete website design and development for an enterprise AI automation company. Dark, technical aesthetic with structured sections for capabilities, process, results, and client engagement.",
     highlights: [
-      "Dynamic sleeve numbering with custom high-contrast geometric typography.",
-      "Front-shorts wolf motif layout tailored for seamless garment sublimated printing.",
-      "Unified home/away kit visual guidelines with custom dynamic gradient accents.",
-      "Digital pitch presentation mockups and social media launch assets."
+      "Full responsive website design from concept to code.",
+      "Technical brand identity matching enterprise AI positioning.",
+      "Structured content sections for complex service offerings.",
+      "Performance-optimized front-end build."
     ],
-    tags: ["Apparel Design", "Sleeve Numbering", "Wolf Motif Layout", "Vector Crests", "Brand Identity"]
+    tags: ["Web Design", "Front-End Dev", "Technical Branding", "Enterprise"],
+    link: "https://cogent-ai-agency-site.netlify.app/"
   },
-  boutique: {
-    title: "Boutique Brand Concept & Editorial Ideation",
-    category: "Collaborative Lifestyle Identity & Layout",
-    tagline: "Tactile minimalism and luxury editorial layouts for modern collaborative brands.",
-    client: "Collaborative Lifestyle Brand Concept",
+  "dawnlight-diary": {
+    title: "Dawnlight Diary — D&D Interactive Tool",
+    category: "Interactive D&D World Building Platform",
+    tagline: "Character bookshelves, backstories, and campaign notes in one place.",
+    client: "D&D Campaign Community",
     year: "2024",
-    role: "Brand Strategist & Art Director",
-    description: "A comprehensive brand identity and editorial design system for an upcoming collaborative boutique lifestyle venture. The brief was quiet luxury—minimalist typography, tactile textures, and layouts that feel as good in print as they do on screen.",
+    role: "Designer & Full-Stack Developer",
+    description: "D&D-inspired interactive website where campaigns discover character bookshelves, backstories, and notes. Built with data persistence for private campaigns. Each book is named after a character and stores their history and secrets.",
     highlights: [
-      "Editorial print and digital lookbook systems with strict mathematical grid layouts.",
-      "Bespoke typographic pairing creating an undeniable sense of quiet luxury.",
-      "Modular packaging mockup templates ready for eco-conscious print production.",
-      "Full digital asset library with Canva Pro customizable campaign templates."
+      "Interactive character bookshelf system.",
+      "Persistent data storage for campaign notes and sketches.",
+      "Backstory and lore management per character.",
+      "Private campaign support with saved data."
     ],
-    tags: ["Brand Identity", "Editorial Grid", "Lifestyle Concept", "Tactile Packaging", "Art Direction"]
+    tags: ["Interactive Design", "Data Persistence", "World Building", "Full-Stack"],
+    link: "https://eddieit01.github.io/dawnlight-diary/"
   },
-  storytelling: {
-    title: "Digital Storytelling, Poetry & Worldbuilding",
-    category: "Creative Copywriting & Motion Narrative",
-    tagline: "Translating rhythm, wordplay, and narrative into high-engagement digital formats.",
-    client: "Original Creative Works",
+  "spoiler-free-sanctuary": {
+    title: "Spoiler-Free Sanctuary — Gaming UX",
+    category: "University Project — Spoiler-Free Gaming Guides",
+    tagline: "Help gamers through story games without spoiling the experience.",
+    client: "University UX Research Project",
     year: "2024",
-    role: "Creative Writer & Motion Copywriter",
-    description: "Creative copywriting and motion design experiments focused on short-form video and social carousels. Testing what makes people stop scrolling, read, and actually share.",
+    role: "UX Designer & Researcher",
+    description: "University project helping gamers through story-driven games like The Last of Us without spoilers. Progressive reveal system that only unlocks content after story milestones, preserving the narrative experience.",
     highlights: [
-      "Original poetic copy structured specifically for visual kinetic typography.",
-      "Custom video pacing workflows pairing audio soundscapes with word reveals.",
-      "Social media narrative carousels achieving high user save and share rates.",
-      "Cross-platform editorial copy guidelines combining emotion with concise clarity."
+      "Progressive content reveal system tied to story milestones.",
+      "User research with story-game players.",
+      "Spoiler-safe guide architecture.",
+      "University-grade UX documentation and testing."
     ],
-    tags: ["Creative Copywriting", "Original Poetry", "CapCut Workflows", "Motion Typography", "Digital Narrative"]
+    tags: ["UX Design", "Progressive Disclosure", "Gaming", "University Project"],
+    link: "https://spoiler-free-sanctuary.netlify.app"
+  },
+  "gaming-tech-store": {
+    title: "Gaming Tech Store — Cyberpunk E-Commerce",
+    category: "E-Commerce Front-End Experience",
+    tagline: "Cyberpunk-themed gaming store with custom builder and community hub.",
+    client: "Personal Project",
+    year: "2024",
+    role: "Web Designer & Front-End Developer",
+    description: "Cyberpunk gaming tech store featuring ready-made rigs, custom build tools, and community hub. Full e-commerce front-end with product showcases, builder interface, and neon-lit visual identity.",
+    highlights: [
+      "Custom PC builder interface with part selection.",
+      "Product catalog with specs and pricing.",
+      "Community hub for sharing setups.",
+      "Cyberpunk visual identity and micro-interactions."
+    ],
+    tags: ["E-Commerce", "Product Design", "Interactive UI", "Cyberpunk"],
+    link: "https://gamingtechstore.netlify.app"
+  },
+  moodcook: {
+    title: "MoodCook — Recipes Based on Mood",
+    category: "University Project — Mood-Based Food Platform",
+    tagline: "Food discovery platform matching recipes to how you feel.",
+    client: "University Project",
+    year: "2024",
+    role: "Web Designer & Content Designer",
+    description: "Food discovery platform that matches recipes to emotional states. Complete recipe cards, blog system, and mood-based navigation built as a university concept. Happy, sad, or adventurous — there is a recipe for every mood.",
+    highlights: [
+      "Mood-based recipe categorization system.",
+      "Full recipe card design with ingredients and steps.",
+      "Blog system with food and seasoning articles.",
+      "University project with complete UX documentation."
+    ],
+    tags: ["Web Design", "Content System", "University Project", "Food Tech"],
+    link: "https://moodcookghadi.netlify.app"
   }
 };
 
@@ -433,6 +488,7 @@ function initProjectShowcase() {
             </div>
 
             <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+              ${data.link ? `<a href="${data.link}" target="_blank" rel="noopener" class="modal-cta-btn px-6 py-3 rounded-full bg-white text-obsidian font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-neonOrange transition-colors"><span>Visit Live Site</span><i class="ri-external-link-line"></i></a>` : ''}
               <a href="#contact" class="modal-cta-btn px-6 py-3 rounded-full bg-neonOrange text-obsidian font-bold text-xs uppercase tracking-wider flex items-center gap-2 hover:bg-white transition-colors">
                 <span>Inquire About Similar Work</span>
                 <i class="ri-arrow-right-line"></i>
