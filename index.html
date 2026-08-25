@@ -1,822 +1,335 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ghadi — Creative Technologist & Visual Designer</title>
-  <meta name="description" content="Portfolio of Ghadi — Creative Technologist & Visual Designer crafting digital products, bold brand identities, and motion-driven experiences." />
+  <title>Ghadi — Creative Developer & Designer</title>
+  <meta name="description" content="Ghadi — Creative developer and designer building digital experiences where technology disappears and the experience takes over. Web design, front-end development, motion and interaction." />
   <link rel="icon" href="images/GLOGO.png" type="image/png">
 
-  <!-- Fonts: Syne & Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300..700;1,300..700&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
-
-  <!-- Remix Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Inter:wght@300..700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 
-  <!-- Tailwind CSS Play CDN & Configuration -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            obsidian: '#0A0A0C',
-            surface: '#131318',
-            paper: '#F4F4F6',
-            neonOrange: '#FF5E36',
-            electricViolet: '#7C3AED'
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            display: ['Syne', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace']
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Main Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="bg-obsidian text-paper selection:bg-neonOrange selection:text-obsidian overflow-x-hidden">
+<body>
 
-  <!-- Custom Magnetic Cursor -->
-  <div class="cursor-dot" id="cursor-dot"></div>
-  <div class="cursor-follower" id="cursor-follower">
-    <span class="cursor-text" id="cursor-text"></span>
-  </div>
+  <!-- Page load curtain -->
+  <div class="curtain" id="curtain" aria-hidden="true"></div>
 
-  <!-- Noise Background Overlay -->
-  <div class="fixed inset-0 pointer-events-none z-50 opacity-[0.035] bg-noise"></div>
+  <!-- Custom cursor (desktop only) -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"><span id="cursor-label"></span></div>
 
-  <!-- Navigation Header -->
-  <header class="fixed top-0 left-0 w-full z-40 transition-all duration-300" id="main-header">
-    <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-      <a href="#hero" class="brand-logo flex items-center gap-3 group" data-magnetic>
-        <span class="w-9 h-9 rounded-full bg-gradient-to-tr from-electricViolet to-neonOrange flex items-center justify-center text-obsidian font-extrabold text-lg shadow-glow transition-transform duration-300 group-hover:scale-110 overflow-hidden">
-          <img src="images/GLOGO.png" alt="GHADI" class="w-full h-full object-cover" id="logo-img" onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='';">
-          <span id="logo-fallback" style="display:none">G</span>
-        </span>
-        <span class="font-display font-bold text-xl tracking-tight text-paper group-hover:text-neonOrange transition-colors">GHADI<span class="text-neonOrange">.™</span></span>
-      </a>
+  <!-- Grain -->
+  <div class="grain fixed inset-0" aria-hidden="true"></div>
 
-      <div class="hidden md:flex items-center gap-8 bg-surface/60 backdrop-blur-md px-6 py-2.5 rounded-full border border-white/10">
-        <a href="#work" class="nav-link text-sm font-medium hover:text-neonOrange transition-colors">Work</a>
-        <a href="#skills" class="nav-link text-sm font-medium hover:text-neonOrange transition-colors">Skills</a>
-        <a href="#about" class="nav-link text-sm font-medium hover:text-neonOrange transition-colors">About</a>
-        <a href="#contact" class="nav-link text-sm font-medium hover:text-neonOrange transition-colors">Contact</a>
-      </div>
+  <a class="skip-link" href="#work">Skip to work</a>
 
-      <div class="flex items-center gap-4">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-emerald-400">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          Available for Hire
-        </div>
-        <a href="#contact" class="btn-primary text-xs font-semibold px-5 py-2.5 rounded-full bg-paper text-obsidian hover:bg-neonOrange hover:text-obsidian transition-all duration-300 flex items-center gap-2" data-magnetic>
-          <span>Let's Talk</span>
-          <i class="ri-arrow-right-up-line"></i>
-        </a>
-        <button id="mobile-menu-toggle" class="md:hidden w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:border-neonOrange hover:text-neonOrange transition-all" aria-label="Toggle menu">
-          <i class="ri-menu-3-line text-lg"></i>
-        </button>
-      </div>
-
-      <!-- Mobile Menu Panel -->
-      <div id="mobile-menu" class="md:hidden fixed inset-0 z-50 bg-obsidian/95 backdrop-blur-xl opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="flex flex-col items-center justify-center h-full gap-8">
-          <a href="#work" class="mobile-nav-link text-2xl font-display font-bold text-paper hover:text-neonOrange transition-colors">Work</a>
-          <a href="#skills" class="mobile-nav-link text-2xl font-display font-bold text-paper hover:text-neonOrange transition-colors">Skills</a>
-          <a href="#about" class="mobile-nav-link text-2xl font-display font-bold text-paper hover:text-neonOrange transition-colors">About</a>
-          <a href="#contact" class="mobile-nav-link text-2xl font-display font-bold text-paper hover:text-neonOrange transition-colors">Contact</a>
-          <button id="mobile-menu-close" class="mt-8 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-sm font-mono text-slate-300 hover:border-neonOrange hover:text-neonOrange transition-all">
-            Close
-          </button>
-        </div>
-      </div>
+  <!-- Navigation -->
+  <header id="site-header">
+    <nav class="nav-inner" aria-label="Primary">
+      <a href="#top" class="brand" data-cursor="link">GHADI<span class="brand-mark">®</span></a>
+      <ul class="nav-links">
+        <li><a href="#work" data-nav data-cursor="link"><span class="nav-index">01</span>Work</a></li>
+        <li><a href="#about" data-nav data-cursor="link"><span class="nav-index">02</span>About</a></li>
+        <li><a href="#contact" data-nav data-cursor="link"><span class="nav-index">03</span>Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta magnetic" data-cursor="link"><span>Let's talk</span><i class="ri-arrow-right-up-line"></i></a>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false"><i class="ri-menu-4-line"></i></button>
     </nav>
   </header>
 
-  <main id="main-content">
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden">
-      <!-- Dynamic Interactive Canvas Background -->
-      <canvas id="hero-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-60"></canvas>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" aria-hidden="true">
+    <button id="menu-close" class="menu-close" aria-label="Close menu"><i class="ri-close-line"></i></button>
+    <nav class="mobile-nav" aria-label="Mobile">
+      <a href="#work" data-mobile-link><em>01</em>Work</a>
+      <a href="#about" data-mobile-link><em>02</em>About</a>
+      <a href="#contact" data-mobile-link><em>03</em>Contact</a>
+      <a href="mailto:ghadi.yassin136@gmail.com" data-mobile-link><em>04</em>Email</a>
+    </nav>
+    <p class="mobile-meta">Available for freelance & collaborations — Worldwide</p>
+  </div>
 
-      <!-- Glowing Orbs -->
-      <div class="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-neonOrange/20 blur-[120px] pointer-events-none"></div>
-      <div class="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-electricViolet/25 blur-[120px] pointer-events-none"></div>
+  <main id="top">
 
-      <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div class="max-w-4xl">
-          <!-- Editorial Badge -->
-          <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-wider text-neonOrange mb-8">
-            <i class="ri-sparkling-fill text-xs"></i>
-            <span>Creative Technologist & Visual Designer</span>
-          </div>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="hero">
+      <div class="hero-frame">
+        <p class="hero-kicker reveal-fade">
+          <span class="status-dot" aria-hidden="true"></span>
+          Available for projects
+          <span class="kicker-sep">/</span>
+          Creative Developer &amp; Designer
+          <span class="kicker-sep">/</span>
+          Based in Lebanon, working worldwide
+        </p>
 
-          <!-- Staggered Animated Headline -->
-          <h1 class="hero-title font-display font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight mb-8">
-            <span class="block overflow-hidden"><span class="hero-text-line block">DESIGNING</span></span>
-            <span class="block overflow-hidden"><span class="hero-text-line block text-transparent bg-clip-text bg-gradient-to-r from-neonOrange via-amber-300 to-electricViolet">DIGITAL PRODUCTS,</span></span>
-            <span class="block overflow-hidden"><span class="hero-text-line block">BOLD BRANDS &</span></span>
-            <span class="block overflow-hidden"><span class="hero-text-line block italic font-normal text-slate-300">MOTION EXPERIENCES.</span></span>
-          </h1>
+        <h1 class="hero-title" id="hero-title">
+          <span class="line-mask"><span class="line">I BUILD DIGITAL</span></span>
+          <span class="line-mask"><span class="line line-italic">experiences</span></span>
+          <span class="line-mask"><span class="line">THAT PEOPLE</span></span>
+          <span class="line-mask"><span class="line">REMEMBER<span class="accent-dot">.</span></span></span>
+        </h1>
 
-          <!-- Tagline -->
-          <p class="hero-tagline text-lg sm:text-xl text-slate-400 font-normal max-w-2xl leading-relaxed mb-10">
-            I build digital products, brand identities, and motion experiences that actually work—no fluff, just clean design and solid code.
-          </p>
-
-          <!-- CTAs & Action Bar -->
-          <div class="hero-actions flex flex-wrap items-center gap-5">
-            <a href="#work" class="btn-hero-primary px-8 py-4 rounded-full bg-neonOrange text-obsidian font-bold text-sm tracking-wide uppercase hover:bg-white transition-all duration-300 flex items-center gap-3 shadow-glow" data-magnetic>
-              <span>Explore Featured Work</span>
-              <i class="ri-arrow-down-line text-lg"></i>
-            </a>
-            <a href="#contact" class="btn-hero-secondary px-8 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 font-bold text-sm tracking-wide uppercase transition-all duration-300 flex items-center gap-3" data-magnetic>
-              <span>Start a Project</span>
-              <i class="ri-chat-1-line text-lg"></i>
-            </a>
+        <div class="hero-foot">
+          <p class="hero-intro reveal-fade">Web design, front-end development, motion and interaction — designed and built by one person, end to end.</p>
+          <div class="hero-scroll reveal-fade" aria-hidden="true">
+            <span>Scroll</span>
+            <span class="scroll-bar"></span>
           </div>
         </div>
+      </div>
+      <div class="hero-parallax-strip" aria-hidden="true">
+        <span>Noura Style — LLUMAR Kuwait — Cogent AI — Drizzle — Northern Lights —&nbsp;</span><span>Noura Style — LLUMAR Kuwait — Cogent AI — Drizzle — Northern Lights —&nbsp;</span>
+      </div>
+    </section>
 
-        <!-- Scroll Indicator & Stats Strip -->
-        <div class="mt-20 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6 text-xs font-mono text-slate-400">
-          <div class="flex items-center gap-8">
-            <div>
-              <span class="text-white font-bold text-lg block font-sans">07+</span>
-              <span>Projects Delivered</span>
-            </div>
-            <div class="w-px h-8 bg-white/10"></div>
-            <div>
-              <span class="text-white font-bold text-lg block font-sans">04+</span>
-              <span>Core Disciplines</span>
-            </div>
-            <div class="w-px h-8 bg-white/10"></div>
-            <div>
-              <span class="text-white font-bold text-lg block font-sans">IT Degree</span>
-              <span>Foundation</span>
-            </div>
-          </div>
+    <!-- ===================== WORK INTRO ===================== -->
+    <section class="work-head" id="work">
+      <div class="section-label reveal-fade"><span>Selected Work</span><span>2024 — 2025</span></div>
+      <h2 class="work-heading">
+        <span class="line-mask"><span class="reveal-line">Work that ships,</span></span>
+        <span class="line-mask"><span class="reveal-line">not just mockups.</span></span>
+      </h2>
+    </section>
 
-          <div class="flex items-center gap-3 text-slate-400 animate-bounce">
-            <span>Scroll To Discover</span>
-            <i class="ri-arrow-down-line text-base text-neonOrange"></i>
+    <!-- ===================== PROJECTS ===================== -->
+    <section class="projects" aria-label="Projects">
+
+      <!-- 01 NOURA STYLE -->
+      <article class="project" data-project="noura-style">
+        <a href="https://norastyle.vercel.app" target="_blank" rel="noopener" class="project-media magnetic-img" data-cursor-label="View Site" tabindex="-1" aria-hidden="true">
+          <div class="media-frame"><img src="images/noura-style.jpg" alt="" loading="lazy"></div>
+          <div class="media-fallback fb-noura"><span>NOURA<br>STYLE</span></div>
+        </a>
+        <div class="project-info">
+          <div class="project-topline">
+            <span class="project-num">01</span>
+            <span class="project-type">Website Concept</span>
           </div>
+          <h3 class="project-title">Noura Style Salon</h3>
+          <div class="project-meta-row">
+            <span>Beauty / Hospitality</span>
+            <span>Design + Development</span>
+            <span>2025</span>
+          </div>
+          <p class="project-desc">A complete website concept for a beauty salon — elegant editorial layout, service presentation and a booking-oriented experience built to feel as refined as the brand it represents.</p>
+          <ul class="project-tags" role="list">
+            <li>Art Direction</li><li>UX / Layout</li><li>Front-End Build</li><li>Motion</li><li>Responsive</li>
+          </ul>
+          <a href="https://norastyle.vercel.app" target="_blank" rel="noopener" class="project-link underline-link" data-cursor="link">Visit live site<i class="ri-arrow-right-up-line"></i></a>
+        </div>
+      </article>
+
+      <!-- 02 LLUMAR KUWAIT -->
+      <article class="project project-flip" data-project="llumar-kuwait">
+        <a href="https://llumarkuwait.vercel.app" target="_blank" rel="noopener" class="project-media magnetic-img" data-cursor-label="View Site" tabindex="-1" aria-hidden="true">
+          <div class="media-frame"><img src="images/llumar-kuwait.jpg" alt="" loading="lazy"></div>
+          <div class="media-fallback fb-llumar"><span>LLUMAR<br>KUWAIT</span></div>
+        </a>
+        <div class="project-info">
+          <div class="project-topline">
+            <span class="project-num">02</span>
+            <span class="project-type">Website Concept</span>
+          </div>
+          <h3 class="project-title">LLUMAR Kuwait</h3>
+          <div class="project-meta-row">
+            <span>Automotive / Window Film</span>
+            <span>Design + Development</span>
+            <span>2025</span>
+          </div>
+          <p class="project-desc">A commercial-grade concept site for an automotive window film business — dark, technical aesthetic with product storytelling, film categories and a conversion-focused structure.</p>
+          <ul class="project-tags" role="list">
+            <li>Visual Design</li><li>Product Storytelling</li><li>Front-End Build</li><li>Interaction</li><li>Responsive</li>
+          </ul>
+          <a href="https://llumarkuwait.vercel.app" target="_blank" rel="noopener" class="project-link underline-link" data-cursor="link">Visit live site<i class="ri-arrow-right-up-line"></i></a>
+        </div>
+      </article>
+
+      <!-- 03 COGENT -->
+      <article class="project" data-project="cogent-ai">
+        <a href="https://cogent-ai-agency-site.netlify.app/" target="_blank" rel="noopener" class="project-media magnetic-img" data-cursor-label="View Site" tabindex="-1" aria-hidden="true">
+          <div class="media-frame"><img src="images/cogentAIAGENCY.png" alt="Cogent AI Agency website preview" loading="lazy"></div>
+        </a>
+        <div class="project-info">
+          <div class="project-topline">
+            <span class="project-num">03</span>
+            <span class="project-type">Live Website</span>
+          </div>
+          <h3 class="project-title">Cogent — AI Agency</h3>
+          <div class="project-meta-row">
+            <span>Enterprise / AI Automation</span>
+            <span>Design + Development</span>
+            <span>2025</span>
+          </div>
+          <p class="project-desc">Full website design and build for an enterprise AI automation partner. Dark, technical aesthetic with structured sections for capabilities, process and engagement.</p>
+          <ul class="project-tags" role="list">
+            <li>Web Design</li><li>Front-End Dev</li><li>Technical Branding</li><li>Performance</li>
+          </ul>
+          <a href="https://cogent-ai-agency-site.netlify.app/" target="_blank" rel="noopener" class="project-link underline-link" data-cursor="link">Visit live site<i class="ri-arrow-right-up-line"></i></a>
+        </div>
+      </article>
+
+      <!-- 04 DRIZZLE -->
+      <article class="project project-flip" data-project="drizzle">
+        <div class="project-media" data-cursor-label="Case" tabindex="-1" aria-hidden="true" data-modal-open="drizzle">
+          <div class="media-frame"><img src="images/DrizzleMenuHome.png" alt="Drizzle QR menu home screen preview" loading="lazy"></div>
+        </div>
+        <div class="project-info">
+          <div class="project-topline">
+            <span class="project-num">04</span>
+            <span class="project-type">QR Menu System</span>
+          </div>
+          <h3 class="project-title">Drizzle</h3>
+          <div class="project-meta-row">
+            <span>Hospitality</span>
+            <span>UX + Visual System</span>
+            <span>2024</span>
+          </div>
+          <p class="project-desc">Mobile-first digital QR menu with category filtering and promotional highlights, paired with physical QR table stands — designed for real hospitality use.</p>
+          <ul class="project-tags" role="list">
+            <li>Layout Systems</li><li>Mobile UX</li><li>Visual Hierarchy</li>
+          </ul>
+          <button class="project-link underline-link" data-modal-open="drizzle" data-cursor="link">Open case study<i class="ri-arrow-right-line"></i></button>
+        </div>
+      </article>
+
+      <!-- Archive row -->
+      <div class="archive" id="archive">
+        <p class="archive-label reveal-fade"><span>More selected work</span><span>2024</span></p>
+        <ul class="archive-list" role="list">
+          <li class="archive-item" data-modal-open="northern-lights" data-cursor="view">
+            <span class="ai-num">05</span>
+            <span class="ai-name">Northern Lights FC</span>
+            <span class="ai-cat">Jersey Design / Team Branding</span>
+            <span class="ai-year">2024</span>
+            <i class="ri-arrow-right-up-line ai-arrow" aria-hidden="true"></i>
+          </li>
+          <li class="archive-item" data-modal-open="dawnlight-diary" data-cursor="view">
+            <span class="ai-num">06</span>
+            <span class="ai-name">Dawnlight Diary</span>
+            <span class="ai-cat">Interactive D&amp;D World-Building Tool</span>
+            <span class="ai-year">2024</span>
+            <i class="ri-arrow-right-up-line ai-arrow" aria-hidden="true"></i>
+          </li>
+          <li class="archive-item" data-modal-open="spoiler-free-sanctuary" data-cursor="view">
+            <span class="ai-num">07</span>
+            <span class="ai-name">Spoiler-Free Sanctuary</span>
+            <span class="ai-cat">Gaming UX / University Project</span>
+            <span class="ai-year">2024</span>
+            <i class="ri-arrow-right-up-line ai-arrow" aria-hidden="true"></i>
+          </li>
+          <li class="archive-item" data-modal-open="gaming-tech-store" data-cursor="view">
+            <span class="ai-num">08</span>
+            <span class="ai-name">Gaming Tech Store</span>
+            <span class="ai-cat">E-Commerce Concept</span>
+            <span class="ai-year">2024</span>
+            <i class="ri-arrow-right-up-line ai-arrow" aria-hidden="true"></i>
+          </li>
+          <li class="archive-item" data-modal-open="moodcook" data-cursor="view">
+            <span class="ai-num">09</span>
+            <span class="ai-name">MoodCook</span>
+            <span class="ai-cat">Mood-Based Food Platform / University Project</span>
+            <span class="ai-year">2024</span>
+            <i class="ri-arrow-right-up-line ai-arrow" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="about" id="about">
+      <div class="section-label reveal-fade"><span>About</span><span>The person behind the work</span></div>
+      <h2 class="about-statement">
+        <span class="line-mask"><span class="reveal-line">I design and build digital experiences where</span></span>
+        <span class="line-mask"><span class="reveal-line"><em>technology disappears</em> and the experience</span></span>
+        <span class="line-mask"><span class="reveal-line">takes over.</span></span>
+      </h2>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>I'm Ghadi — a creative technologist who does both the design and the code. No hand-offs, no miscommunication, just work that gets built right the first time.</p>
+          <p>An IT background taught me how systems actually fit together, so everything I design is practical to build and easy to maintain. I work across web design, front-end development, motion and visual systems — from commercial websites to interactive concepts.</p>
+        </div>
+        <div class="about-disciplines" role="list">
+          <div class="discipline"><span>01</span><h3>Web Design</h3><p>Editorial layouts, typography-led hierarchy, art direction.</p></div>
+          <div class="discipline"><span>02</span><h3>Front-End Development</h3><p>Semantic HTML, modern CSS, JavaScript — built to perform.</p></div>
+          <div class="discipline"><span>03</span><h3>Motion &amp; Interaction</h3><p>GSAP-driven choreography that serves the story, never distracts.</p></div>
+          <div class="discipline"><span>04</span><h3>Visual Systems</h3><p>Brand identity, color, and design systems that scale.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- Marquee Banner -->
-    <div class="w-full bg-neonOrange text-obsidian py-4 overflow-hidden border-y border-neonOrange/30 select-none">
-      <div class="marquee-content flex gap-12 font-display font-extrabold text-lg sm:text-xl tracking-wider uppercase whitespace-nowrap">
-        <span>JERSEY DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>QR MENU SYSTEMS</span> <span class="text-obsidian/40">•</span>
-        <span>WEB DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>AI AGENCIES</span> <span class="text-obsidian/40">•</span>
-        <span>INTERACTIVE TOOLS</span> <span class="text-obsidian/40">•</span>
-        <span>E-COMMERCE</span> <span class="text-obsidian/40">•</span>
-        <span>UX RESEARCH</span> <span class="text-obsidian/40">•</span>
-        <span>BRAND IDENTITY</span> <span class="text-obsidian/40">•</span>
-        <span>JERSEY DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>QR MENU SYSTEMS</span> <span class="text-obsidian/40">•</span>
-        <span>WEB DESIGN</span> <span class="text-obsidian/40">•</span>
-        <span>AI AGENCIES</span> <span class="text-obsidian/40">•</span>
-        <span>INTERACTIVE TOOLS</span> <span class="text-obsidian/40">•</span>
-        <span>E-COMMERCE</span> <span class="text-obsidian/40">•</span>
-        <span>UX RESEARCH</span> <span class="text-obsidian/40">•</span>
-        <span>BRAND IDENTITY</span> <span class="text-obsidian/40">•</span>
-      </div>
-    </div>
-
-    <!-- Featured Work Showcase -->
-    <section id="work" class="py-28 px-6 relative z-10 max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-        <div>
-          <span class="text-xs font-mono uppercase tracking-widest text-neonOrange block mb-3">// FEATURED CASE STUDIES</span>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight">
-            RECENT WORK & <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonOrange to-electricViolet">CASE STUDIES</span>
-          </h2>
-        </div>
-
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-2 bg-surface/80 p-1.5 rounded-full border border-white/10 self-start md:self-auto">
-          <button class="filter-btn active px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 bg-neonOrange text-obsidian" data-filter="all">All Projects</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="brand">Brand & Identity</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="digital">Digital & Web</button>
-          <button class="filter-btn px-5 py-2 rounded-full text-xs font-semibold transition-all duration-300 text-slate-400 hover:text-white" data-filter="interactive">Interactive & UX</button>
-        </div>
-      </div>
-
-      <!-- Projects Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
-
-        <!-- Project 1: Northern Lights Jersey Design -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-neonOrange/50 hover:shadow-2xl" data-category="brand" data-project="northern-lights">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-cyan-950/40 via-obsidian to-blue-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-neonOrange/20 text-neonOrange border border-neonOrange/30">JERSEY DESIGN</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-neonOrange group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 flex items-center justify-center">
-                <div class="relative w-28 h-28 bg-gradient-to-tr from-cyan-600 to-blue-500 rounded-2xl flex items-center justify-center text-white font-extrabold shadow-xl group-hover:-rotate-3 transition-transform duration-500">
-                  <i class="ri-shield-flash-line text-5xl"></i>
-                  <div class="absolute -bottom-2 right-2 text-[10px] font-mono bg-obsidian/80 px-2 py-0.5 rounded">NL</div>
-                </div>
-              </div>
-
-              <img src="images/FrontJsersey.png" alt="Northern Lights Jersey" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>NORTHERN LIGHTS FC</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-neonOrange transition-colors">Northern Lights — Jersey Design</h3>
-              <span class="text-xs font-mono text-slate-400">01</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Complete football jersey design for Northern Lights FC. Custom crest, typography, and color system built for real kit production and team identity.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Apparel Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Team Branding</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Vector Crest</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 2: Drizzle QR Menu -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-electricViolet/50 hover:shadow-2xl" data-category="digital" data-project="drizzle">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/40 via-obsidian to-orange-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-electricViolet/20 text-purple-300 border border-electricViolet/30">QR MENU SYSTEM</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-electricViolet group-hover:text-white transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 flex items-center justify-center gap-4">
-                <div class="w-20 h-20 rounded-xl bg-white p-2.5 flex flex-col items-center justify-center text-obsidian shadow-2xl group-hover:rotate-3 transition-transform duration-500">
-                  <i class="ri-qr-code-line text-4xl"></i>
-                  <span class="text-[8px] font-mono font-bold uppercase tracking-tighter mt-1">SCAN MENU</span>
-                </div>
-                <div class="flex-1 text-left space-y-2 hidden sm:block">
-                  <div class="h-2 w-3/4 rounded bg-white/30"></div>
-                  <div class="h-2 w-1/2 rounded bg-white/20"></div>
-                  <div class="h-2 w-5/6 rounded bg-neonOrange/60"></div>
-                </div>
-              </div>
-
-              <img src="images/DrizzleMenuHome.png" alt="Drizzle QR Menu" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>LOCAL BUSINESS HYBRID</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-electricViolet transition-colors">Drizzle — Digital QR Menu</h3>
-              <span class="text-xs font-mono text-slate-400">02</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Mobile-first QR menu system with category filtering, promotional highlights, and physical QR table stands. Built for real hospitality use.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Layout Systems</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Mobile UX</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Visual Hierarchy</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 3: Cogent AI Agency -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-cyan-400/50 hover:shadow-2xl" data-category="digital" data-project="cogent-ai">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-obsidian to-slate-800/40 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-400/20 text-cyan-300 border border-cyan-400/30">AI AUTOMATION</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-cyan-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 text-center">
-                <div class="text-3xl font-display font-extrabold text-white tracking-tighter">COGENT</div>
-                <div class="text-[10px] font-mono text-cyan-300 mt-1">ENTERPRISE AI AUTOMATION</div>
-              </div>
-
-              <img src="images/cogentAIAGENCY.png" alt="Cogent AI Agency" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>LIVE WEBSITE</span>
-                <span>2025</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-cyan-300 transition-colors">Cogent — AI Agency Website</h3>
-              <span class="text-xs font-mono text-slate-400">03</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Full website design and build for an enterprise AI automation partner. Dark, technical aesthetic with structured sections for capabilities, process, and engagement.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Web Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Front-End Dev</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Technical Branding</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 4: Dawnlight Diary -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-amber-400/50 hover:shadow-2xl" data-category="interactive" data-project="dawnlight-diary">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-amber-950/40 via-obsidian to-yellow-900/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">DND WORLD BUILDING</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-amber-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 text-center">
-                <div class="text-2xl font-display font-bold text-amber-200 tracking-tight">Dawnlight Diary</div>
-                <div class="text-[10px] font-mono text-amber-300/80 mt-1">CHARACTER BOOK SHELVES</div>
-              </div>
-
-              <img src="images/dawnlightDiary.png" alt="Dawnlight Diary" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>INTERACTIVE DND TOOL</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-amber-300 transition-colors">Dawnlight Diary</h3>
-              <span class="text-xs font-mono text-slate-400">04</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              D&D-inspired interactive website where campaigns discover character bookshelves, backstories, and notes. Built with saved data persistence for private campaigns.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Interactive Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Data Persistence</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">World Building</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 5: Spoiler-Free Sanctuary -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-emerald-400/50 hover:shadow-2xl" data-category="interactive" data-project="spoiler-free-sanctuary">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-emerald-950/40 via-obsidian to-teal-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">UNIVERSITY PROJECT</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-emerald-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 text-center px-4">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-xs font-mono text-emerald-300">
-                  <i class="ri-shield-check-line text-xs"></i>
-                  <span>SPOILER-FREE GUIDES</span>
-                </div>
-                <p class="text-emerald-200/80 text-xs mt-3 font-mono">For story-driven games like The Last of Us</p>
-              </div>
-
-              <img src="images/SpoilerFreeSanc.png" alt="Spoiler-Free Sanctuary" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>GAMING UX RESEARCH</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-emerald-300 transition-colors">Spoiler-Free Sanctuary</h3>
-              <span class="text-xs font-mono text-slate-400">05</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              University project helping gamers through story-driven games without spoilers. Progressive reveal system that only unlocks content after story milestones.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">UX Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Progressive Disclosure</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Gaming</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 6: Gaming Tech Store -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-fuchsia-400/50 hover:shadow-2xl" data-category="digital" data-project="gaming-tech-store">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-fuchsia-950/40 via-obsidian to-purple-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-fuchsia-400/20 text-fuchsia-300 border border-fuchsia-400/30">E-COMMERCE</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-fuchsia-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 flex items-center justify-center gap-3">
-                <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-fuchsia-600 to-purple-600 flex items-center justify-center text-white font-extrabold shadow-xl group-hover:-rotate-6 transition-transform duration-500">
-                  <i class="ri-gamepad-line text-3xl"></i>
-                </div>
-                <div class="text-left">
-                  <div class="text-sm font-display font-bold text-white">Stormbreaker</div>
-                  <div class="text-[10px] font-mono text-fuchsia-300">9000 SERIES</div>
-                </div>
-              </div>
-
-              <img src="images/TechStore.png" alt="Gaming Tech Store" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>CYBERPUNK STORE</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-fuchsia-300 transition-colors">Gaming Tech Store</h3>
-              <span class="text-xs font-mono text-slate-400">06</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Cyberpunk-themed gaming tech store with custom builder tool, product showcases, and community hub. Full e-commerce front-end experience.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">E-Commerce</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Product Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Interactive UI</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Project 7: MoodCook -->
-        <div class="project-card group relative rounded-3xl overflow-hidden bg-surface border border-white/10 p-2 transition-all duration-500 hover:border-rose-400/50 hover:shadow-2xl" data-category="digital" data-project="moodcook">
-          <div class="card-inner relative rounded-2xl overflow-hidden bg-obsidian aspect-[16/10] flex items-center justify-center p-6">
-            <div class="absolute inset-0 bg-gradient-to-br from-rose-950/40 via-obsidian to-orange-950/30 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-
-            <div class="relative z-10 w-full h-full flex flex-col justify-between border border-white/10 rounded-xl p-5 bg-obsidian/60 backdrop-blur-md">
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-mono px-3 py-1 rounded-full bg-rose-400/20 text-rose-300 border border-rose-400/30">FOOD & MOOD</span>
-                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-rose-400 group-hover:text-obsidian transition-colors duration-300">
-                  <i class="ri-arrow-right-up-line text-lg"></i>
-                </div>
-              </div>
-
-              <div class="my-auto py-4 flex items-center justify-center gap-3">
-                <div class="text-4xl">🍳</div>
-                <div class="text-left">
-                  <div class="text-sm font-display font-bold text-white">MoodCook</div>
-                  <div class="text-[10px] font-mono text-rose-300">RECIPES BY EMOTION</div>
-                </div>
-              </div>
-
-              <img src="images/MoodCook.png" alt="MoodCook" class="preview-image" onerror="this.style.display='none'">
-
-              <div class="flex items-center justify-between text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
-                <span>UNIVERSITY PROJECT</span>
-                <span>2024</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-6">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-display font-bold text-2xl text-paper group-hover:text-rose-300 transition-colors">MoodCook</h3>
-              <span class="text-xs font-mono text-slate-400">07</span>
-            </div>
-            <p class="text-slate-400 text-sm line-clamp-2 leading-relaxed mb-4">
-              Food discovery platform matching recipes to emotional states. Full recipe cards, blog system, and mood-based navigation built as a university concept.
-            </p>
-            <div class="flex flex-wrap gap-2 text-xs font-mono">
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Web Design</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">Content System</span>
-              <span class="px-3 py-1 rounded-full bg-white/5 text-slate-300">University Project</span>
-            </div>
-          </div>
-        </div>
-
+    <!-- ===================== SKILLS ===================== -->
+    <section class="skills" id="skills">
+      <div class="skills-inner">
+        <p class="section-label reveal-fade"><span>Capabilities</span><span>Tools I use daily</span></p>
+        <div class="skill-row reveal-fade"><h3>Front-End</h3><p>HTML5 · CSS3 · JavaScript (ES6+) · Responsive Architecture · Semantic HTML</p></div>
+        <div class="skill-row reveal-fade"><h3>Motion</h3><p>GSAP · ScrollTrigger · Lenis · Interaction Design</p></div>
+        <div class="skill-row reveal-fade"><h3>Design</h3><p>UI / UX · Visual Design · Typography · Brand Identity · Layout Systems</p></div>
+        <div class="skill-row reveal-fade"><h3>Digital Media</h3><p>Video Editing · CapCut · Social Assets · Copywriting</p></div>
+        <div class="skill-row reveal-fade"><h3>Workflow</h3><p>Git · GitHub · VS Code · Netlify · Vercel · Rapid Iteration</p>
       </div>
     </section>
 
-    <!-- Interactive Skill Matrix -->
-    <section id="skills" class="py-28 px-6 relative z-10 bg-surface/30 border-y border-white/5">
-      <div class="max-w-7xl mx-auto">
-        <div class="max-w-3xl mb-16">
-          <span class="text-xs font-mono uppercase tracking-widest text-neonOrange block mb-3">// CAPABILITIES & TECH MATRIX</span>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight mb-6">
-            MULTIDISCIPLINARY <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricViolet to-neonOrange">TOOLKIT</span>
-          </h2>
-          <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
-            Three core areas: visual design, front-end development, and digital storytelling.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-          <!-- Pillar 1: Visual & Brand Design -->
-          <div class="skill-category-card p-8 rounded-3xl bg-surface border border-white/10 relative overflow-hidden group hover:border-neonOrange/40 transition-all duration-300">
-            <div class="w-12 h-12 rounded-2xl bg-neonOrange/10 border border-neonOrange/20 text-neonOrange flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-              <i class="ri-palette-line"></i>
-            </div>
-            <h3 class="font-display font-bold text-xl text-paper mb-3">Visual & Brand Design</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-6 font-mono">
-              From logos to full brand systems, I make sure every visual choice serves the business goal.
-            </p>
-            <div class="flex flex-wrap gap-2.5">
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-neonOrange hover:text-neonOrange hover:bg-neonOrange/10 transition-all cursor-pointer">Layout Systems</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-neonOrange hover:text-neonOrange hover:bg-neonOrange/10 transition-all cursor-pointer">Typography Hierarchy</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-neonOrange hover:text-neonOrange hover:bg-neonOrange/10 transition-all cursor-pointer">Canva Pro Assets</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-neonOrange hover:text-neonOrange hover:bg-neonOrange/10 transition-all cursor-pointer">Visual Communication</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-neonOrange hover:text-neonOrange hover:bg-neonOrange/10 transition-all cursor-pointer">Concept Mockups</span>
-            </div>
-          </div>
-
-          <!-- Pillar 2: Development & Code -->
-          <div class="skill-category-card p-8 rounded-3xl bg-surface border border-white/10 relative overflow-hidden group hover:border-electricViolet/40 transition-all duration-300">
-            <div class="w-12 h-12 rounded-2xl bg-electricViolet/10 border border-electricViolet/20 text-electricViolet flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-              <i class="ri-code-s-slash-line"></i>
-            </div>
-            <h3 class="font-display font-bold text-xl text-paper mb-3">Development & Code</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-6 font-mono">
-              Clean code that matches the design—no surprises when it goes live.
-            </p>
-            <div class="flex flex-wrap gap-2.5">
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-electricViolet hover:text-electricViolet hover:bg-electricViolet/10 transition-all cursor-pointer">HTML5 / Modern CSS3</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-electricViolet hover:text-electricViolet hover:bg-electricViolet/10 transition-all cursor-pointer">JavaScript (ES6+)</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-electricViolet hover:text-electricViolet hover:bg-electricViolet/10 transition-all cursor-pointer">GSAP & ScrollTrigger</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-electricViolet hover:text-electricViolet hover:bg-electricViolet/10 transition-all cursor-pointer">Responsive Web Arch</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-electricViolet hover:text-electricViolet hover:bg-electricViolet/10 transition-all cursor-pointer">IT Foundations</span>
-            </div>
-          </div>
-
-          <!-- Pillar 3: Motion & Digital Media -->
-          <div class="skill-category-card p-8 rounded-3xl bg-surface border border-white/10 relative overflow-hidden group hover:border-cyan-400/40 transition-all duration-300">
-            <div class="w-12 h-12 rounded-2xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-              <i class="ri-film-line"></i>
-            </div>
-            <h3 class="font-display font-bold text-xl text-paper mb-3">Motion & Digital Media</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-6 font-mono">
-              Video, pacing, and copy that keeps people watching and sharing.
-            </p>
-            <div class="flex flex-wrap gap-2.5">
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 transition-all cursor-pointer">Video Editing</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 transition-all cursor-pointer">CapCut Workflows</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 transition-all cursor-pointer">Digital Storytelling</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 transition-all cursor-pointer">Social Asset Creation</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:bg-cyan-400/10 transition-all cursor-pointer">Copywriting & Rhythm</span>
-            </div>
-          </div>
-
-          <!-- Pillar 4: Competitive Edge & Process -->
-          <div class="skill-category-card p-8 rounded-3xl bg-surface border border-white/10 relative overflow-hidden group hover:border-amber-400/40 transition-all duration-300">
-            <div class="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/20 text-amber-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
-              <i class="ri-flashlight-line"></i>
-            </div>
-            <h3 class="font-display font-bold text-xl text-paper mb-3">Competitive Edge & Process</h3>
-            <p class="text-slate-400 text-xs leading-relaxed mb-6 font-mono">
-              Speed without sacrifice. Competitive training means I deliver fast without losing precision.
-            </p>
-            <div class="flex flex-wrap gap-2.5">
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all cursor-pointer">Rapid Iteration</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all cursor-pointer">Adaptive Workflow</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all cursor-pointer">Pixel Precision</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all cursor-pointer">Client Feedback Loops</span>
-              <span class="skill-pill px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:border-amber-400 hover:text-amber-400 hover:bg-amber-400/10 transition-all cursor-pointer">End-to-End Ownership</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Why Work With Me / About Section -->
-    <section id="about" class="py-28 px-6 relative z-10 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-        <div class="lg:col-span-5 space-y-6">
-          <span class="text-xs font-mono uppercase tracking-widest text-neonOrange block">// WHY WORK WITH ME</span>
-          <h2 class="font-display font-extrabold text-3xl sm:text-5xl tracking-tight leading-tight">
-            HIGH SPEED.<br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonOrange via-amber-300 to-electricViolet">TECHNICAL RIGOR.</span><br/>
-            CREATIVE DRIVE.
-          </h2>
-
-          <p class="text-slate-300 text-base leading-relaxed">
-            I'm <strong class="text-white">Ghadi</strong> — a creative technologist who does both the design and the code. No hand-offs, no miscommunication, just work that gets built right the first time.
-          </p>
-
-          <div class="p-6 rounded-2xl bg-surface border border-white/10 space-y-4">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-neonOrange/20 text-neonOrange flex items-center justify-center shrink-0">
-                <i class="ri-terminal-box-line text-xl"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-white text-sm mb-1">IT background means I get how things actually work</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  My degree taught me how systems, databases, and code structures fit together. The designs I make don't just look good—they're practical to build and easy to maintain.
-                </p>
-              </div>
-            </div>
-
-            <div class="w-full h-px bg-white/5"></div>
-
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-electricViolet/20 text-electricViolet flex items-center justify-center shrink-0">
-                <i class="ri-trophy-line text-xl"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-white text-sm mb-1">Competitive mindset, real-world speed</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  Years in competitive environments taught me to iterate fast, adapt on the fly, and deliver under pressure. What you see is what you get—no endless revisions, no missed deadlines.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div class="p-8 rounded-3xl bg-surface/80 border border-white/10 hover:border-white/20 transition-all space-y-4">
-            <div class="text-neonOrange font-mono text-3xl font-extrabold">01 / SPEED</div>
-            <h3 class="font-display font-bold text-xl text-white">Rapid Iteration</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Fast turnarounds without cutting corners. I move quickly but I don't skip the details that matter.
-            </p>
-          </div>
-
-          <div class="p-8 rounded-3xl bg-surface/80 border border-white/10 hover:border-white/20 transition-all space-y-4">
-            <div class="text-electricViolet font-mono text-3xl font-extrabold">02 / HYBRID</div>
-            <h3 class="font-display font-bold text-xl text-white">Design Meets Code</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              No hand-off between design and development. I handle the visual direction and the front-end build myself.
-            </p>
-          </div>
-
-          <div class="p-8 rounded-3xl bg-surface/80 border border-white/10 hover:border-white/20 transition-all space-y-4 sm:col-span-2">
-            <div class="text-amber-400 font-mono text-3xl font-extrabold">03 / STORYTELLING</div>
-            <h3 class="font-display font-bold text-xl text-white">Narrative-Driven Experiences</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">
-              Every design choice should serve a purpose—keeping people engaged and moving them to act.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- High-Converting Contact / Footer -->
-    <section id="contact" class="py-28 px-6 relative z-10 max-w-7xl mx-auto">
-      <div class="rounded-3xl bg-gradient-to-b from-surface to-obsidian border border-white/15 p-8 sm:p-16 relative overflow-hidden shadow-2xl">
-
-        <!-- Glow accents -->
-        <div class="absolute -top-32 -right-32 w-80 h-80 rounded-full bg-neonOrange/20 blur-[100px] pointer-events-none"></div>
-        <div class="absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-electricViolet/20 blur-[100px] pointer-events-none"></div>
-
-        <div class="relative z-10 max-w-4xl mx-auto text-center space-y-8">
-          <span class="text-xs font-mono uppercase tracking-widest text-neonOrange inline-block px-4 py-1.5 rounded-full bg-neonOrange/10 border border-neonOrange/20">
-            READY TO ELEVATE YOUR BRAND?
-          </span>
-
-          <h2 class="font-display font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight leading-none">
-            HAVING A VISION?<br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neonOrange via-amber-300 to-electricViolet">LET'S BUILD IT.</span>
-          </h2>
-
-          <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-            Got a project in mind? Whether it's branding, a website, or motion content—let's talk about what you actually need.
-          </p>
-
-          <!-- Copy Email Box -->
-          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <div class="w-full sm:w-auto flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-white/15 font-mono text-sm text-slate-200">
-              <i class="ri-mail-send-line text-neonOrange text-lg"></i>
-              <span id="email-address">ghadi.yassin136@gmail.com</span>
-              <button id="copy-email-btn" class="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-neonOrange hover:text-obsidian text-xs font-sans font-semibold transition-colors flex items-center gap-1.5" title="Copy to clipboard">
-                <i class="ri-file-copy-line"></i>
-                <span id="copy-btn-text">Copy</span>
-              </button>
-            </div>
-            <div class="w-full sm:w-auto flex items-center gap-3 px-6 py-4 rounded-2xl bg-white/5 border border-white/15 font-mono text-sm text-slate-200">
-              <i class="ri-phone-line text-neonOrange text-lg"></i>
-              <span id="phone-number">+961 70563919</span>
-              <button id="copy-phone-btn" class="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-neonOrange hover:text-obsidian text-xs font-sans font-semibold transition-colors flex items-center gap-1.5" title="Copy to clipboard">
-                <i class="ri-file-copy-line"></i>
-                <span id="copy-phone-text">Copy</span>
-              </button>
-            </div>
-
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ghadi.yassin136@gmail.com&su=Let's%20Talk%20-%20Ghadi&body=Hi%20Ghadi,%20I%20found%20your%20portfolio%20and%20I'd%20love%20to%20discuss%20a%20project%20with%20you." target="_blank" rel="noopener" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-neonOrange text-obsidian font-bold text-sm tracking-wide uppercase hover:bg-white transition-all duration-300 flex items-center justify-center gap-2 shadow-glow" data-magnetic>
-              <span>Send Direct Email</span>
-              <i class="ri-send-plane-fill"></i>
-            </a>
-            <a href="https://wa.me/96170563919?text=Hi%20Ghadi,%20I%20found%20your%20portfolio%20and%20I'd%20like%20to%20chat%20about%20a%20project." target="_blank" rel="noopener" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#25D366] text-white font-bold text-sm tracking-wide uppercase hover:bg-[#20b858] transition-all duration-300 flex items-center justify-center gap-2 shadow-lg" data-magnetic>
-              <i class="ri-whatsapp-line text-lg"></i>
-              <span>Message on WhatsApp</span>
-            </a>
-          </div>
-
-          <!-- Social Links -->
-          <div class="pt-12 border-t border-white/10 flex flex-wrap items-center justify-between gap-6">
-            <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span>Based online • Worldwide availability</span>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-neonOrange hover:border-neonOrange transition-all" data-magnetic title="GitHub"><i class="ri-github-fill text-lg"></i></a>
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-neonOrange hover:border-neonOrange transition-all" data-magnetic title="LinkedIn"><i class="ri-linkedin-fill text-lg"></i></a>
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-neonOrange hover:border-neonOrange transition-all" data-magnetic title="Twitter / X"><i class="ri-twitter-x-fill text-lg"></i></a>
-              <a href="#" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:text-neonOrange hover:border-neonOrange transition-all" data-magnetic title="Instagram"><i class="ri-instagram-line text-lg"></i></a>
-            </div>
-          </div>
-
-        </div>
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact" id="contact">
+      <p class="section-label reveal-fade"><span>Contact</span><span>No forms, just talk</span></p>
+      <h2 class="contact-title">
+        <span class="line-mask"><span class="reveal-line">LET'S BUILD SOMETHING</span></span>
+        <span class="line-mask"><span class="reveal-line"><em>worth remembering.</em></span></span>
+      </h2>
+      <div class="contact-links">
+        <a href="mailto:ghadi.yassin136@gmail.com" class="contact-line magnetic" data-cursor="link">
+          <span class="cl-label">Email</span>
+          <span class="cl-value">ghadi.yassin136@gmail.com</span>
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+        <a href="https://wa.me/96170563919" target="_blank" rel="noopener" class="contact-line magnetic" data-cursor="link">
+          <span class="cl-label">WhatsApp</span>
+          <span class="cl-value">+961 70 563 919</span>
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+        <a href="https://github.com/eddieit01" target="_blank" rel="noopener" class="contact-line magnetic" data-cursor="link">
+          <span class="cl-label">GitHub</span>
+          <span class="cl-value">@eddieit01</span>
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+        <a href="https://www.instagram.com/nex7.gen" target="_blank" rel="noopener" class="contact-line magnetic" data-cursor="link">
+          <span class="cl-label">Instagram</span>
+          <span class="cl-value">@nex7.gen</span>
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/ghadiyassin" target="_blank" rel="noopener" class="contact-line magnetic" data-cursor="link">
+          <span class="cl-label">LinkedIn</span>
+          <span class="cl-value">/in/ghadiyassin</span>
+          <i class="ri-arrow-right-up-line"></i>
+        </a>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="py-8 px-6 border-t border-white/10 text-xs font-mono text-slate-400 relative z-10">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        © <span id="year">2025</span> Ghadi.™ All rights reserved.
-      </div>
-      <div class="flex items-center gap-6">
-        <a href="#hero" class="hover:text-neonOrange transition-colors flex items-center gap-1">
-          <span>Back to Top</span>
-          <i class="ri-arrow-up-line"></i>
-        </a>
-      </div>
-    </div>
+  <footer class="footer">
+    <span>© <span id="year">2025</span> Ghadi — Designed &amp; built with intent</span>
+    <a href="#top" class="underline-link" data-cursor="link">Back to top<i class="ri-arrow-up-line"></i></a>
   </footer>
 
-  <!-- Interactive Project Modal -->
-  <div id="project-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 opacity-0 pointer-events-none transition-opacity duration-300">
-    <div class="modal-backdrop absolute inset-0 bg-obsidian/90 backdrop-blur-xl"></div>
-    <div class="modal-container relative z-10 bg-surface border border-white/15 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-2xl scale-95 transition-transform duration-300">
-      <button id="modal-close-btn" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-neonOrange hover:text-obsidian flex items-center justify-center text-white transition-colors" data-magnetic>
-        <i class="ri-close-line text-2xl"></i>
-      </button>
-
-      <div id="modal-content-area">
-        <!-- Injected via JavaScript -->
-      </div>
+  <!-- Project modal -->
+  <div id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel">
+      <button id="modal-close-btn" class="modal-close" aria-label="Close case study"><i class="ri-close-line"></i></button>
+      <div id="modal-content-area"></div>
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-8 right-8 z-50 px-5 py-3 rounded-2xl bg-neonOrange text-obsidian font-bold text-xs font-mono shadow-2xl translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
-    <i class="ri-checkbox-circle-fill text-base"></i>
-    <span id="toast-message">Copied to clipboard!</span>
-  </div>
-
-  <!-- GSAP Libraries & Plugins via CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <!-- Lenis Smooth Scroll CDN -->
   <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-
-  <!-- Main Script -->
   <script src="script.js"></script>
 </body>
 </html>
