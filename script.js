@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ------------------------------------------------------------------ */
   function initCurtain(reduceMotion) {
     const curtain = document.getElementById('curtain');
-    const lines = document.querySelectorAll('.hero-title .line');
+    const lines = document.querySelectorAll('.hero-title .line, .hero-statement .hs-line');
     const fades = document.querySelectorAll('.hero .reveal-fade');
 
     if (reduceMotion || typeof gsap === 'undefined') {
@@ -205,24 +205,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof ScrollTrigger === 'undefined') return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Hero parallax on scroll out
-    gsap.to('.hero-frame', {
-      yPercent: -14, opacity: 0.25, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-    });
+    const mm = gsap.matchMedia();
 
-    // Marquee strip drift
-    gsap.to('.hero-parallax-strip', {
-      xPercent: -18, ease: 'none',
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
-    });
-
+    // ---- All sizes: one-shot reveals (play once, then stop doing work) ----
     // Masked line reveals for big headings
     document.querySelectorAll('.work-heading, .about-statement, .contact-title').forEach(h => {
       const lines = h.querySelectorAll('.reveal-line');
       gsap.from(lines, {
-        yPercent: 110, duration: 1.15, stagger: 0.1, ease: 'power4.out',
-        scrollTrigger: { trigger: h, start: 'top 82%' }
+        yPercent: 110, duration: 1.05, stagger: 0.09, ease: 'power4.out',
+        scrollTrigger: { trigger: h, start: 'top 82%', once: true }
       });
     });
 
@@ -230,49 +221,78 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.reveal-fade').forEach(el => {
       if (el.closest('.hero')) return; // hero handled by intro timeline
       gsap.from(el, {
-        opacity: 0, y: 26, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%' }
+        opacity: 0, y: 24, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
       });
     });
 
-    // Project media: clip reveal + inner parallax
+    // Project media: clip reveal (one-shot) + info cascade
     document.querySelectorAll('.project').forEach(project => {
       const media = project.querySelector('.media-frame');
-      const img = project.querySelector('.media-frame img');
       const info = project.querySelector('.project-info');
 
       if (media) {
         gsap.fromTo(media,
-          { clipPath: 'inset(8% 4% 8% 4%)', scale: 0.97 },
-          { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 1.3, ease: 'power3.out',
-            scrollTrigger: { trigger: project, start: 'top 78%' } }
+          { clipPath: 'inset(6% 3% 6% 3%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'power3.out',
+            scrollTrigger: { trigger: project, start: 'top 80%', once: true } }
         );
-      }
-      if (img && !reduceMotionCheck()) {
-        gsap.fromTo(img, { yPercent: -8 }, {
-          yPercent: 0, ease: 'none',
-          scrollTrigger: { trigger: project, start: 'top bottom', end: 'bottom top', scrub: true }
-        });
       }
       if (info) {
         gsap.from(info.children, {
-          y: 34, opacity: 0, duration: 0.85, stagger: 0.07, ease: 'power3.out',
-          scrollTrigger: { trigger: info, start: 'top 84%' }
+          y: 30, opacity: 0, duration: 0.75, stagger: 0.06, ease: 'power3.out',
+          scrollTrigger: { trigger: info, start: 'top 84%', once: true }
         });
       }
     });
 
-    // Archive items cascade
-    gsap.from('.archive-item', {
-      opacity: 0, y: 24, duration: 0.7, stagger: 0.06, ease: 'power3.out',
-      scrollTrigger: { trigger: '#archive', start: 'top 80%' }
+    gsap.from('.project', {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.05, ease: 'power3.out',
+      scrollTrigger: { trigger: '.projects', start: 'top 82%', once: true }
     });
+
+    // ---- Desktop only: continuous scrub effects (transform-only) ----
+    mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
+      // Hero parallax on scroll out
+      const heroTl = gsap.to('.hero-frame', {
+        yPercent: -12, opacity: 0.25, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+
+      const stripTl = gsap.to('.hero-parallax-strip', {
+        xPercent: -18, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+      });
+
+      // Inner image parallax — transform only, desktop only
+      const imgTriggers = [];
+      document.querySelectorAll('.project .media-frame img').forEach(img => {
+        const t = gsap.fromTo(img, { yPercent: -7 }, {
+          yPercent: 0, ease: 'none',
+          scrollTrigger: { trigger: img.closest('.project'), start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+        imgTriggers.push(t);
+      });
+
+      // Cleanup when leaving the breakpoint
+      return () => {
+        heroTl.scrollTrigger?.kill(); heroTl.kill();
+        stripTl.scrollTrigger?.kill(); stripTl.kill();
+        imgTriggers.forEach(t => { t.scrollTrigger?.kill(); t.kill(); });
+      };
+    });
+
+    // Recalculate after lazy images finish loading (prevents mis-timed triggers)
+    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      if (!img.complete) img.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    });
+
+    window.addEventListener('load', () => ScrollTrigger.refresh());
   }
 
   function reduceMotionCheck() {
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
-
   function revealAllInstant() {
     document.querySelectorAll('.line-mask .line, .reveal-line').forEach(el => el.style.transform = 'none');
     document.querySelectorAll('.reveal-fade').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
