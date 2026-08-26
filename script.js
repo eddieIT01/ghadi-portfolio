@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initCurtain(reduceMotion);
-  if (isDesktop) initCursor();
   initMagnetic(isDesktop);
   initHeader();
   initMobileMenu(lenis);
@@ -68,52 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Failsafe: never trap the user behind the curtain
     setTimeout(() => { if (curtain && curtain.style.display !== 'none') { curtain.style.display = 'none'; gsap.set([lines, fades], { clearProps: 'all' }); } }, 3500);
-  }
-
-  /* ------------------------------------------------------------------
-     CUSTOM CURSOR
-  ------------------------------------------------------------------ */
-  function initCursor() {
-    if (typeof gsap === 'undefined') return;
-    document.body.classList.add('has-cursor');
-
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    const label = document.getElementById('cursor-label');
-
-    const xDot = gsap.quickTo(dot, 'x', { duration: 0.12, ease: 'power2.out' });
-    const yDot = gsap.quickTo(dot, 'y', { duration: 0.12, ease: 'power2.out' });
-    const xRing = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3.out' });
-    const yRing = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3.out' });
-
-    window.addEventListener('mousemove', (e) => {
-      xDot(e.clientX); yDot(e.clientY);
-      xRing(e.clientX); yRing(e.clientY);
-      document.body.classList.remove('cursor-hidden');
-    }, { passive: true });
-
-    document.addEventListener('mouseleave', () => document.body.classList.add('cursor-hidden'));
-
-    // Intelligent hover states
-    document.querySelectorAll('[data-cursor], [data-cursor-label]').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        const mode = el.getAttribute('data-cursor');
-        const text = el.getAttribute('data-cursor-label');
-        document.body.classList.remove('cursor-view', 'cursor-link');
-        if (text) {
-          label.textContent = text;
-          document.body.classList.add('cursor-view');
-          ring.classList.add('cursor-label-on');
-        } else if (mode) {
-          document.body.classList.add(`cursor-${mode}`);
-        }
-      });
-      el.addEventListener('mouseleave', () => {
-        document.body.classList.remove('cursor-view', 'cursor-link');
-        ring.classList.remove('cursor-label-on');
-        label.textContent = '';
-      });
-    });
   }
 
   /* ------------------------------------------------------------------
@@ -246,39 +199,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    gsap.from('.project', {
-      opacity: 0, y: 20, duration: 0.6, stagger: 0.05, ease: 'power3.out',
-      scrollTrigger: { trigger: '.projects', start: 'top 82%', once: true }
-    });
-
-    // ---- Desktop only: continuous scrub effects (transform-only) ----
+    // ---- Desktop only: lightweight scrub effects (transform-only) ----
     mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
-      // Hero parallax on scroll out
       const heroTl = gsap.to('.hero-frame', {
-        yPercent: -12, opacity: 0.25, ease: 'none',
+        yPercent: -10, opacity: 0.3, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
       });
 
       const stripTl = gsap.to('.hero-parallax-strip', {
-        xPercent: -18, ease: 'none',
+        xPercent: -12, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
       });
 
-      // Inner image parallax — transform only, desktop only
-      const imgTriggers = [];
-      document.querySelectorAll('.project .media-frame img').forEach(img => {
-        const t = gsap.fromTo(img, { yPercent: -7 }, {
-          yPercent: 0, ease: 'none',
-          scrollTrigger: { trigger: img.closest('.project'), start: 'top bottom', end: 'bottom top', scrub: true }
-        });
-        imgTriggers.push(t);
-      });
-
-      // Cleanup when leaving the breakpoint
       return () => {
         heroTl.scrollTrigger?.kill(); heroTl.kill();
         stripTl.scrollTrigger?.kill(); stripTl.kill();
-        imgTriggers.forEach(t => { t.scrollTrigger?.kill(); t.kill(); });
       };
     });
 
