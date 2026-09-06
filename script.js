@@ -426,6 +426,16 @@ document.addEventListener('DOMContentLoaded', () => {
       highlights: ["Mood-based recipe categorization system.", "Full recipe card design with ingredients and steps.", "Blog system with food articles.", "Complete UX documentation."],
       tags: ["Web Design", "Content System", "University"],
       link: "https://moodcookghadi.netlify.app"
+    },
+    "rock-shield-kuwait": {
+      title: "Rock Shield Kuwait",
+      category: "Automotive / Protection — Digital Experience",
+      tagline: "Digital experience for an automotive protection brand.",
+      client: "Independent Project", year: "2025", role: "Designer & Developer",
+      description: "A digital experience for Rock Shield Kuwait — automotive protection product presentation, technical credibility and a conversion-focused structure built to match the market it represents.",
+      highlights: ["Product-focused presentation with strong visual hierarchy.", "Technical credibility through structured content sections.", "Conversion-oriented layout guiding toward contact.", "Fully responsive front-end build."],
+      tags: ["Visual Design", "Product Storytelling", "Front-End Build", "Interaction"],
+      link: "https://rockshieldkw.vercel.app"
     }
   };
 

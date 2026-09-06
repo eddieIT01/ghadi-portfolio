@@ -6,16 +6,15 @@
    ========================================================================== */
 
 :root {
-  /* Default environment: warm ivory */
-  --bg: #F2EEE3;
-  --bg-raised: #E7E1D1;
-  --ink: #211F1A;
-  --ink-dim: #6E695C;
-  --ink-faint: #96907F;
-  --line: #DBD4C2;
-  --stroke-soft: #CFC8B4;
-  --accent: #A9834E;
-  --on-accent: #17150F;
+  --bg: #F0F1FA;
+  --bg-raised: #E6E7F2;
+  --ink: #202126;
+  --ink-dim: #5B5C63;
+  --ink-faint: #8A8B93;
+  --line: #D4D5DE;
+  --stroke-soft: #C8C9D4;
+  --accent: #5B5CFF;
+  --on-accent: #F0F1FA;
 
   --font-display: 'Archivo', sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
@@ -189,13 +188,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .project-title .w-mask { padding-top: .09em; margin-top: -.09em; }
 
 /* ==========================================================================
-   HERO — opening shot · warm ivory
+   HERO — digital sculpture gallery entrance
    ========================================================================== */
 .hero {
   min-height: 100vh;
   min-height: 100svh;
   display: flex; flex-direction: column;
-  padding: calc(var(--pad) + 4.5rem) var(--pad) 0;
+  padding: calc(var(--pad) + 5rem) var(--pad) 0;
   position: relative;
 }
 .hero-frame {
@@ -204,8 +203,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 .hero-kicker {
   display: flex; align-items: center; flex-wrap: wrap; gap: .8rem;
-  font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--ink-dim); margin-bottom: clamp(2rem, 5vh, 4rem);
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-dim); margin-bottom: clamp(2.5rem, 6vh, 5rem);
 }
 .status-dot {
   width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
@@ -217,13 +216,13 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(4.2rem, 17.5vw, 19rem);
-  line-height: .88;
-  letter-spacing: -.035em;
+  font-size: clamp(5rem, 20vw, 24rem);
+  line-height: .82;
+  letter-spacing: -.04em;
   text-transform: uppercase;
   margin-left: -.04em;
 }
-.hero-title .line-mask { padding-top: .14em; margin-top: -.14em; }
+.hero-title .line-mask { padding-top: .12em; margin-top: -.12em; }
 .hero-name { color: var(--ink); }
 .hero-reg {
   font-size: .14em; font-weight: 500;
@@ -232,19 +231,18 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   margin-left: .15em;
 }
 
-/* Asymmetric second act of the hero */
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: clamp(2rem, 5vw, 6rem);
+  grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+  gap: clamp(3rem, 6vw, 8rem);
   align-items: end;
-  margin-top: clamp(1.5rem, 4vh, 3.5rem);
+  margin-top: clamp(2rem, 5vh, 4.5rem);
 }
-.hero-grid .line-mask { padding-bottom: .14em; margin-bottom: -.14em; }
+.hero-grid .line-mask { padding-bottom: .12em; margin-bottom: -.12em; }
 .hero-role {
   font-family: var(--font-display);
   font-weight: 300;
-  font-size: clamp(1.6rem, 4.2vw, 4rem);
+  font-size: clamp(1.8rem, 4.8vw, 5rem);
   line-height: 1.02;
   letter-spacing: .02em;
   text-transform: uppercase;
@@ -258,7 +256,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 340;
-  font-size: clamp(1.1rem, 2.4vw, 2.1rem);
+  font-size: clamp(1.2rem, 2.6vw, 2.4rem);
   letter-spacing: .01em;
   text-transform: none;
   color: var(--ink-dim);
@@ -267,7 +265,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-statement {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(.95rem, 1.5vw, 1.25rem);
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
   line-height: 1.45;
   letter-spacing: .02em;
   text-transform: uppercase;
@@ -280,33 +278,35 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-statement .hs-line:last-child { color: var(--ink-dim); }
 
 .hero-meta {
-  display: flex; gap: clamp(1.5rem, 4vw, 4rem);
-  margin-top: clamp(1.5rem, 4vh, 3rem);
+  display: flex; gap: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(2rem, 5vh, 4rem);
   font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
   line-height: 1.9;
 }
 .hero-meta p:first-child { color: var(--ink); }
 .hero-meta-dim { color: var(--ink-faint); }
 
-/* Opening-shot image plate — gallery-framed, bottom right */
+/* Gallery artifact — generous framing, restrained */
 .hero-plate {
   grid-column: 2; grid-row: 2;
   justify-self: end; align-self: end;
-  width: clamp(220px, 18vw, 300px);
+  width: clamp(240px, 22vw, 420px);
 }
 .hp-frame {
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--bg-raised);
-  padding: .4rem;
+  padding: .5rem;
+  border-radius: .25rem;
 }
 .hp-frame img {
   width: 100%; aspect-ratio: 16 / 10; object-fit: cover;
+  border-radius: .15rem;
 }
 .hero-plate figcaption {
   display: flex; justify-content: space-between; gap: 1rem;
-  margin-top: .55rem;
-  font-size: .6rem; letter-spacing: .12em; text-transform: uppercase;
+  margin-top: .7rem;
+  font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink-faint);
 }
 .hero-plate figcaption span:first-child { color: var(--accent); }
@@ -314,7 +314,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-foot {
   max-width: 1680px; width: 100%; margin: 0 auto;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 1.6rem 0;
+  padding: 1.8rem 0;
   border-top: 1px solid var(--line);
   font-size: .68rem; letter-spacing: .16em; text-transform: uppercase;
   color: var(--ink-dim);
@@ -336,7 +336,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-parallax-strip {
   border-top: 1px solid var(--line);
   overflow: hidden; white-space: nowrap;
-  padding: 1rem 0;
+  padding: 1.1rem 0;
   font-family: var(--font-display); font-weight: 700;
   font-size: .95rem; text-transform: uppercase; letter-spacing: .06em;
   color: var(--ink-faint);
@@ -344,7 +344,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .hero-parallax-strip span { display: inline-block; }
 
 /* ==========================================================================
-   WORK HEAD — stone environment begins
+   WORK HEAD — gallery entrance text
    ========================================================================== */
 .work-head {
   padding: clamp(5rem, 12vh, 10rem) var(--pad) clamp(2rem, 5vw, 4rem);
@@ -381,10 +381,10 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 .project {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(2rem, 5vw, 6rem);
+  grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+  gap: clamp(3rem, 6vw, 8rem);
   align-items: start;
-  padding: clamp(4rem, 11vh, 9rem) 0;
+  padding: clamp(5rem, 13vh, 10rem) 0;
   border-top: 1px solid var(--line);
   position: relative;
 }
@@ -400,6 +400,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   background: var(--bg-raised);
   border: 1px solid var(--line);
   display: block; width: 100%;
+  border-radius: .35rem;
+  padding: .5rem;
 }
 .project-flip .project-media { grid-column: 1; }
 .project-info { grid-column: 1; grid-row: 1; }
@@ -412,6 +414,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: relative; overflow: hidden;
   width: 100%; height: 100%;
   background: var(--bg-raised);
+  border-radius: .2rem;
 }
 .media-frame:not(.media-contain) img {
   position: relative; width: 100%; height: 100%;
@@ -423,7 +426,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .project-media { transition: border-color .5s; }
 .project:hover .project-media { border-color: var(--stroke-soft); }
 
-/* Oversized ghost numeral behind each scene */
+/* Ghost numeral — restrained */
 .project-num {
   position: absolute;
   top: clamp(-1rem, -2vw, -0.5rem);
@@ -470,7 +473,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .live-cta {
   display: inline-flex; align-items: center; gap: .7rem;
   border: 1px solid var(--line);
-  border: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
   border-radius: 999px;
   padding: .85rem 1.5rem;
   font-family: var(--font-display); font-weight: 700;
@@ -494,7 +497,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .ghost-cta { background: transparent; }
 
 /* ==========================================================================
-   ABOUT — returns to warm ivory
+   ABOUT — gallery metadata
    ========================================================================== */
 .about {
   padding: clamp(6rem, 16vh, 12rem) var(--pad);
@@ -565,7 +568,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 }
 
 /* ==========================================================================
-   CONTACT — closing scene · deep black
+   CONTACT — closing gallery room
    ========================================================================== */
 .contact {
   padding: clamp(6rem, 16vh, 13rem) var(--pad) clamp(4rem, 8vh, 6rem);
