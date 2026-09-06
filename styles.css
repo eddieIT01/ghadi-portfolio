@@ -57,6 +57,11 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: fixed; inset: 0; z-index: 5000;
   background: var(--bg);
   pointer-events: none;
+  animation: curtain-failsafe 4s forwards;
+}
+@keyframes curtain-failsafe {
+  0%, 95% { visibility: visible; }
+  100% { visibility: hidden; }
 }
 
 /* ---------- Skip link ---------- */
@@ -250,6 +255,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   align-items: center;
   justify-content: center;
   min-height: 0;
+  min-height: clamp(320px, 55vh, 720px);
 }
 
 /* Back layer — massive sculptural typography */
