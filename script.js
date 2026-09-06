@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const hasST = typeof ScrollTrigger !== 'undefined';
   const animationsOn = hasGsap && hasST && !reduceMotion;
 
+  window.addEventListener('error', e => console.error('[GHADI]', e.message));
+  window.addEventListener('unhandledrejection', e => console.error('[GHADI]', e.reason));
+
   /* ------------------------------------------------------------------
      SMOOTH SCROLL — single Lenis instance, driven by gsap.ticker
   ------------------------------------------------------------------ */
