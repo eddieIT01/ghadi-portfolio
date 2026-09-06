@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  let ctx = null;
   initCurtain();
   initMagnetic();
   initHeader();
@@ -336,15 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }));
       }
 
-      const portrait = document.querySelector('.hero-portrait-reveal');
-      if (portrait) {
+      const portraitReveal = document.querySelector('.hero-portrait-reveal');
+      if (portraitReveal) {
         tweens.push(ScrollTrigger.create({
           trigger: '.hero',
           start: 'top top',
           end: 'top 60%',
           scrub: false,
-          onEnter: () => portrait.classList.add('is-visible'),
-          onLeaveBack: () => portrait.classList.remove('is-visible')
+          onEnter: () => portraitReveal.classList.add('is-visible'),
+          onLeaveBack: () => portraitReveal.classList.remove('is-visible')
         }));
       }
 
