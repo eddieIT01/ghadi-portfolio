@@ -77,10 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const lines = document.querySelectorAll('.hero-title .line, .hero-grid .line');
     const fades = document.querySelectorAll('.hero .reveal-fade');
     const plate = document.querySelector('.hero-plate');
+    const watermark = document.querySelector('.gh-watermark');
 
     gsap.set(lines, { yPercent: 110 });
     gsap.set(fades, { opacity: 0, y: 16 });
     if (plate) gsap.set(plate, { opacity: 0, y: 26 });
+    if (watermark) gsap.set(watermark, { opacity: 0, scale: 1.08 });
 
     window.addEventListener('load', () => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
@@ -89,14 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
         .to('.hero-title .line', { yPercent: 0, duration: 1.3 }, '-=0.35')
         .to('.hero-grid .line', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '-=1.05')
         .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, '-=0.7')
-        .to(plate, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.85');
+        .to(plate, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.85')
+        .to(watermark, { opacity: 0.35, scale: 1, duration: 1.4, ease: 'power3.out' }, '-=1.2');
     });
 
     // Failsafe: never trap the user behind the curtain
     setTimeout(() => {
       if (curtain.style.display !== 'none') {
         curtain.style.display = 'none';
-        gsap.set([lines, fades, plate], { clearProps: 'all' });
+        gsap.set([lines, fades, plate, watermark], { clearProps: 'all' });
       }
     }, 3500);
   }
@@ -148,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Active nav indicator
     const navLinks = [...document.querySelectorAll('[data-nav]')];
-    const sections = ['work', 'about', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
+    const sections = ['work', 'about', 'experiments', 'contact'].map(id => document.getElementById(id)).filter(Boolean);
     if ('IntersectionObserver' in window && sections.length) {
       const io = new IntersectionObserver((entries) => {
         entries.forEach(en => {
@@ -234,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mm = gsap.matchMedia();
 
     // ---- Masked line reveals for big section headings ----
-    document.querySelectorAll('.work-heading, .about-heading, .contact-title').forEach(h => {
+    document.querySelectorAll('.work-heading, .about-heading, .contact-title, .experiments-heading').forEach(h => {
       const lines = h.querySelectorAll('.reveal-line');
       gsap.from(lines, {
         yPercent: 110, duration: 1.05, stagger: 0.09, ease: 'power4.out',

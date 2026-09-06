@@ -32,7 +32,8 @@
       <ul class="nav-links">
         <li><a href="#work" data-nav><span class="nav-index">01</span>Work</a></li>
         <li><a href="#about" data-nav><span class="nav-index">02</span>About</a></li>
-        <li><a href="#contact" data-nav><span class="nav-index">03</span>Contact</a></li>
+        <li><a href="#experiments" data-nav><span class="nav-index">03</span>Experiments</a></li>
+        <li><a href="#contact" data-nav><span class="nav-index">04</span>Contact</a></li>
       </ul>
       <a href="#contact" class="nav-cta magnetic"><span>Let's talk</span><i class="ri-arrow-right-up-line"></i></a>
       <button id="menu-toggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false"><i class="ri-menu-4-line"></i></button>
@@ -49,8 +50,9 @@
     <nav class="mobile-nav" aria-label="Mobile">
       <a href="#work" data-mobile-link><em>01</em>Work</a>
       <a href="#about" data-mobile-link><em>02</em>About</a>
-      <a href="#contact" data-mobile-link><em>03</em>Contact</a>
-      <a href="mailto:ghadi.yassin136@gmail.com" data-mobile-link><em>04</em>Email</a>
+      <a href="#experiments" data-mobile-link><em>03</em>Experiments</a>
+      <a href="#contact" data-mobile-link><em>04</em>Contact</a>
+      <a href="mailto:ghadi.yassin136@gmail.com" data-mobile-link><em>05</em>Email</a>
     </nav>
     <p class="mobile-meta">Available for freelance & collaborations — Worldwide</p>
   </div>
@@ -70,30 +72,33 @@
         </p>
 
         <h1 class="hero-title" id="hero-title">
+          <span class="gh-watermark" aria-hidden="true">GH</span>
           <span class="line-mask"><span class="line hero-name">GHADI<sup class="hero-reg">®</sup></span></span>
         </h1>
 
         <div class="hero-grid">
-          <p class="hero-role" aria-label="Creative Technologist and Visual Designer">
-            <span class="line-mask"><span class="line">Web</span></span>
-            <span class="line-mask"><span class="line hr-outline">Creative</span></span>
-            <span class="line-mask"><span class="line hero-role-sub">Development</span></span>
-          </p>
+          <div class="hero-primary">
+            <p class="hero-role" aria-label="Creative Technologist and Visual Designer">
+              <span class="line-mask"><span class="line">Web</span></span>
+              <span class="line-mask"><span class="line hr-outline">Creative</span></span>
+              <span class="line-mask"><span class="line hero-role-sub">Development</span></span>
+            </p>
 
-          <p class="hero-statement">
-            <span class="line-mask"><span class="line hs-line">I build digital experiences</span></span>
-            <span class="line-mask"><span class="line hs-line">that feel alive.</span></span>
-          </p>
+            <p class="hero-statement">
+              <span class="line-mask"><span class="line hs-line">I build digital experiences</span></span>
+              <span class="line-mask"><span class="line hs-line">that feel alive.</span></span>
+            </p>
+
+            <div class="hero-meta reveal-fade">
+              <p>Web Design<br>Development<br>Motion</p>
+              <p class="hero-meta-dim">Designed &amp; built by<br>one person, end to end.</p>
+            </div>
+          </div>
 
           <figure class="hero-plate" aria-hidden="true">
             <div class="hp-frame"><img src="images/noura-style.jpg" alt="" width="1920" height="1080"></div>
             <figcaption><span>Noura Style</span><span>2025 — Web</span></figcaption>
           </figure>
-
-          <div class="hero-meta reveal-fade">
-            <p>Web Design<br>Development<br>Motion</p>
-            <p class="hero-meta-dim">Designed &amp; built by<br>one person, end to end.</p>
-          </div>
         </div>
       </div>
 
@@ -256,9 +261,9 @@
       </article>
 
       <!-- 10 ROCK SHIELD KUWAIT -->
-      <article class="project" data-project="rock-shield-kuwait">
+      <article class="project project-flip" data-project="rock-shield-kuwait">
         <a href="https://rockshieldkw.vercel.app" target="_blank" rel="noopener" class="project-media">
-          <div class="media-frame"></div>
+          <div class="media-frame"><img src="images/rockshieldkw.png" alt="Rock Shield Kuwait website" width="1920" height="1080" loading="lazy" decoding="async"></div>
         </a>
         <div class="project-info">
           <span class="project-num" aria-hidden="true">10</span>
@@ -278,7 +283,6 @@
         <span class="line-mask"><span class="reveal-line">The person</span></span>
         <span class="line-mask"><span class="reveal-line ah-serif">behind the work.</span></span>
       </h2>
-      <p class="about-quote" data-scrub>I design and build digital experiences where technology disappears and the experience takes over.</p>
       <div class="about-grid">
         <div class="about-copy reveal-fade">
           <p>I'm Ghadi — a creative technologist who does both the design and the code. No hand-offs, no miscommunication, just work that gets built right the first time.</p>
@@ -304,7 +308,7 @@
           <li class="cap reveal-fade">
             <span class="cap-num">03</span>
             <div class="cap-main">
-              <h3 class="cap-name">Motion & Interaction</h3>
+              <h3 class="cap-name">Motion &amp; Interaction</h3>
               <p class="cap-desc">Choreography that serves the story, never distracts.</p>
             </div>
             <p class="cap-tools">GSAP · ScrollTrigger · Lenis · Interaction Design</p>
@@ -337,15 +341,46 @@
       </div>
     </section>
 
+    <!-- ===================== EXPERIMENTS ===================== -->
+    <section class="experiments" id="experiments">
+      <p class="section-label reveal-fade"><span>Experiments</span><span>In progress</span></p>
+      <h2 class="experiments-heading">
+        <span class="line-mask"><span class="reveal-line">Creative</span></span>
+        <span class="line-mask"><span class="reveal-line ex-outline">Code</span></span>
+      </h2>
+      <div class="experiments-grid">
+        <div class="experiment reveal-fade">
+          <span class="ex-num" aria-hidden="true">01</span>
+          <h3 class="ex-title">Interaction</h3>
+          <p class="ex-desc">Exploring micro-interactions, scroll choreography, and tactile feedback loops beyond standard UI patterns.</p>
+        </div>
+        <div class="experiment reveal-fade">
+          <span class="ex-num" aria-hidden="true">02</span>
+          <h3 class="ex-title">Motion</h3>
+          <p class="ex-desc">GSAP-driven experiments in timing, easing, and narrative pacing — motion that serves the story.</p>
+        </div>
+        <div class="experiment reveal-fade">
+          <span class="ex-num" aria-hidden="true">03</span>
+          <h3 class="ex-title">WebGL</h3>
+          <p class="ex-desc">Three.js and custom shader experiments. Still in early exploration — not yet ready for exhibition.</p>
+        </div>
+        <div class="experiment reveal-fade">
+          <span class="ex-num" aria-hidden="true">04</span>
+          <h3 class="ex-title">3D</h3>
+          <p class="ex-desc">Sculptural geometry and spatial interfaces. Work in progress — coming to the gallery soon.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== CONTACT ===================== -->
     <section class="contact" id="contact">
       <p class="section-label reveal-fade"><span>Contact</span><span>No forms, just talk</span></p>
       <h2 class="contact-title">
         <span class="line-mask"><span class="reveal-line">Let's build</span></span>
         <span class="line-mask"><span class="reveal-line">something</span></span>
-        <span class="line-mask"><span class="reveal-line ct-serif">worth remembering<i class="ct-dot">.</i></span></span>
+        <span class="line-mask"><span class="reveal-line ct-serif">unforgettable<i class="ct-dot">.</i></span></span>
       </h2>
-      <p class="contact-note reveal-fade">Currently available for freelance & collaborations — worldwide, remote friendly.</p>
+      <p class="contact-note reveal-fade">Currently available for freelance &amp; collaborations — worldwide, remote friendly.</p>
       <div class="contact-links">
         <a href="mailto:ghadi.yassin136@gmail.com" class="contact-line">
           <span class="cl-label">Email</span>
