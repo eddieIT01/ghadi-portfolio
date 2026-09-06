@@ -50,15 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
   initMagnetic();
   initHeader();
   initMobileMenu();
-
-  // All scroll-driven animation lives inside one gsap.context for clean teardown
-  let ctx = null;
   if (animationsOn) {
     ctx = gsap.context(() => initScrollAnimations());
+    initParticles();
   } else {
     revealAllInstant();
   }
-
   initModal();
   initYear();
 
@@ -74,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!animationsOn) { curtain.remove(); return; }
 
-    const lines = document.querySelectorAll('.hero-title .line, .hero-grid .line');
+    const lines = document.querySelectorAll('.hero-title .line, .hero-role .line');
     const fades = document.querySelectorAll('.hero .reveal-fade');
-    const plate = document.querySelector('.hero-plate');
+    const plate = document.querySelector('.hero-portrait');
     const watermark = document.querySelector('.gh-watermark');
 
     gsap.set(lines, { yPercent: 110 });
     gsap.set(fades, { opacity: 0, y: 16 });
-    if (plate) gsap.set(plate, { opacity: 0, y: 26 });
+    if (plate) gsap.set(plate, { opacity: 0, y: 40, scale: 0.92 });
     if (watermark) gsap.set(watermark, { opacity: 0, scale: 1.08 });
 
     window.addEventListener('load', () => {
@@ -89,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
       tl.to(curtain, { yPercent: -100, duration: 0.9, ease: 'power3.inOut' })
         .add(() => { curtain.style.display = 'none'; })
         .to('.hero-title .line', { yPercent: 0, duration: 1.3 }, '-=0.35')
-        .to('.hero-grid .line', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '-=1.05')
+        .to('.hero-role .line', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '-=1.05')
         .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, '-=0.7')
-        .to(plate, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.85')
+        .to(plate, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' }, '-=0.85')
         .to(watermark, { opacity: 0.35, scale: 1, duration: 1.4, ease: 'power3.out' }, '-=1.2');
     });
 
@@ -304,12 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    // ---- Desktop only: lightweight scrub effects (transform/opacity only) ----
+    // ---- Desktop only: layered scroll choreography (transform only) ----
     mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
       const tweens = [];
 
       tweens.push(gsap.to('.hero-frame', {
-        yPercent: -8, opacity: 0.35, ease: 'none',
+        yPercent: -6, opacity: 0.4, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
       }));
 
@@ -318,11 +315,27 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
       }));
 
+      const back = document.querySelector('.hero-back');
+      if (back) {
+        tweens.push(gsap.to(back, {
+          yPercent: -18, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+        }));
+      }
+
       const portrait = document.querySelector('.hero-portrait');
       if (portrait) {
         tweens.push(gsap.to(portrait, {
-          y: -60, scale: 0.95, ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+          y: -140, scale: 0.9, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 }
+        }));
+      }
+
+      const front = document.querySelector('.hero-front');
+      if (front) {
+        tweens.push(gsap.to(front, {
+          y: -50, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
         }));
       }
 
@@ -342,6 +355,103 @@ document.addEventListener('DOMContentLoaded', () => {
   function revealAllInstant() {
     document.querySelectorAll('.line-mask .line, .reveal-line').forEach(el => el.style.transform = 'none');
     document.querySelectorAll('.reveal-fade').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+  }
+
+  /* ------------------------------------------------------------------
+     HERO PARTICLES — lightweight canvas, ~80 desktop / ~40 mobile
+  ------------------------------------------------------------------ */
+  function initParticles() {
+    const canvas = document.querySelector('.hero-particles');
+    if (!canvas || !animationsOn) return;
+
+    const ctx = canvas.getContext('2d');
+    const hero = document.querySelector('.hero');
+    if (!hero || !ctx) return;
+
+    const isMobile = window.innerWidth < 1025;
+    const count = isMobile ? 40 : 80;
+    let particles = [];
+    let mouse = { x: -9999, y: -9999 };
+    let inView = true;
+    let raf = null;
+
+    function resize() {
+      const rect = hero.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
+
+    function create() {
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.4,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          opacity: Math.random() * 0.35 + 0.08,
+          color: Math.random() < 0.08 ? '#1a2ffb' : '#ffffff'
+        });
+      }
+    }
+
+    function draw() {
+      if (!inView) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140 && dist > 0) {
+          const force = (140 - dist) / 140;
+          p.vx += (dx / dist) * force * 0.15;
+          p.vy += (dy / dist) * force * 0.15;
+        }
+        p.vx *= 0.985;
+        p.vy *= 0.985;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.opacity;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(draw);
+    }
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        inView = en.isIntersecting;
+        if (inView) {
+          if (!raf) draw();
+        } else if (raf) {
+          cancelAnimationFrame(raf);
+          raf = null;
+        }
+      });
+    }, { threshold: 0 });
+    io.observe(hero);
+
+    hero.addEventListener('mousemove', e => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    window.addEventListener('resize', () => { resize(); create(); });
+    resize();
+    create();
+    draw();
   }
 
   /* ------------------------------------------------------------------
