@@ -327,28 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const portrait = document.querySelector('.hero-portrait');
       if (portrait) {
         tweens.push(gsap.to(portrait, {
-          y: -140, scale: 0.9, ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.2 }
-        }));
-      }
-
-      const front = document.querySelector('.hero-front');
-      if (front) {
-        tweens.push(gsap.to(front, {
-          y: -50, ease: 'none',
-          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
-        }));
-      }
-
-      const portraitReveal = document.querySelector('.hero-portrait-reveal');
-      if (portraitReveal) {
-        tweens.push(ScrollTrigger.create({
-          trigger: '.hero',
-          start: 'top top',
-          end: 'top 60%',
-          scrub: false,
-          onEnter: () => portraitReveal.classList.add('is-visible'),
-          onLeaveBack: () => portraitReveal.classList.remove('is-visible')
+          opacity: 0, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
         }));
       }
 

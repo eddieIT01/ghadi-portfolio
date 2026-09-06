@@ -263,7 +263,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
   justify-content: center;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   padding: var(--pad);
 }
@@ -313,40 +313,24 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   margin-top: .35em;
 }
 
-/* Middle layer — portrait sculpture, revealed on scroll */
+/* Background layer — hero portrait as full background image */
 .hero-portrait {
-  position: absolute;
-  z-index: 2;
-  width: clamp(140px, 22vw, 300px);
-  flex-shrink: 0;
-  will-change: transform;
-  opacity: 0;
-  transform: translateY(30px) scale(0.95);
-  transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
-  left: 50%;
-  top: 50%;
-  margin-left: -8vw;
-  margin-top: -18vh;
+  position: absolute; inset: 0;
+  z-index: 0;
   pointer-events: none;
-}
-.hero-portrait-reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-.hero-portrait .hp-frame {
   overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--bg-raised);
-  padding: .4rem;
-  border-radius: .25rem;
 }
-.hero-portrait .hp-frame img {
-  width: 100%;
-  aspect-ratio: 853 / 1280;
+.hero-portrait img {
+  width: 100%; height: 100%;
   object-fit: cover;
-  object-position: top center;
-  border-radius: .15rem;
-  display: block;
+  object-position: center 30%;
+  opacity: 0.18;
+}
+.hero-portrait::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(240,241,250,0.35), rgba(240,241,250,0.85));
+  pointer-events: none;
 }
 
 /* Front layer — statement and metadata */
@@ -830,16 +814,8 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .about-grid { grid-template-columns: 1fr; }
   .hero-stage { flex-direction: column; gap: 2.5rem; padding: 2rem 0; }
   .hero-back { position: relative; inset: auto; padding: 0; }
-  .hero-back .hero-title { font-size: clamp(3.5rem, 14vw, 9rem); opacity: 1; }
+  .hero-back .hero-back .hero-title { font-size: clamp(3.5rem, 14vw, 9rem); opacity: 1; }
   .hero-back .hero-role { font-size: clamp(1.4rem, 4vw, 2.4rem); opacity: 1; margin-top: .5rem; }
-  .hero-portrait {
-    position: relative;
-    left: auto; top: auto;
-    margin-left: 0; margin-top: 0;
-    width: min(60vw, 220px);
-    opacity: 1 !important;
-    transform: none !important;
-  }
   .hero-front { position: relative; inset: auto; padding: 0; flex-direction: column; gap: 1.5rem; }
   .hero-meta { text-align: left; }
   .hero-statement { max-width: 40ch; }
@@ -882,7 +858,7 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
   .curtain { display: none; }
   .line-mask .line, .reveal-line { transform: none !important; }
   .reveal-fade { opacity: 1 !important; transform: none !important; }
-  .hero-portrait { opacity: 1 !important; transform: none !important; }
+  .hero-portrait { opacity: 1 !important; }
   .media-frame img { transform: none !important; }
   .media-frame:not(.media-contain) img {
     position: static; width: 100%; height: 100%; top: auto;
