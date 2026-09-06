@@ -73,12 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const lines = document.querySelectorAll('.hero-title .line, .hero-role .line');
     const fades = document.querySelectorAll('.hero .reveal-fade');
-    const plate = document.querySelector('.hero-portrait');
     const watermark = document.querySelector('.gh-watermark');
 
     gsap.set(lines, { yPercent: 110 });
     gsap.set(fades, { opacity: 0, y: 16 });
-    if (plate) gsap.set(plate, { opacity: 0, y: 40, scale: 0.92 });
     if (watermark) gsap.set(watermark, { opacity: 0, scale: 1.08 });
 
     window.addEventListener('load', () => {
@@ -88,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .to('.hero-title .line', { yPercent: 0, duration: 1.3 }, '-=0.35')
         .to('.hero-role .line', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '-=1.05')
         .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, '-=0.7')
-        .to(plate, { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power3.out' }, '-=0.85')
         .to(watermark, { opacity: 0.35, scale: 1, duration: 1.4, ease: 'power3.out' }, '-=1.2');
     });
 
@@ -96,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       if (curtain.style.display !== 'none') {
         curtain.style.display = 'none';
-        gsap.set([lines, fades, plate, watermark], { clearProps: 'all' });
+        gsap.set([lines, fades, watermark], { clearProps: 'all' });
       }
     }, 3500);
   }
@@ -336,6 +333,18 @@ document.addEventListener('DOMContentLoaded', () => {
         tweens.push(gsap.to(front, {
           y: -50, ease: 'none',
           scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
+        }));
+      }
+
+      const portrait = document.querySelector('.hero-portrait-reveal');
+      if (portrait) {
+        tweens.push(ScrollTrigger.create({
+          trigger: '.hero',
+          start: 'top top',
+          end: 'top 60%',
+          scrub: false,
+          onEnter: () => portrait.classList.add('is-visible'),
+          onLeaveBack: () => portrait.classList.remove('is-visible')
         }));
       }
 
