@@ -1,15 +1,29 @@
 /**
  * GHADI — Editorial Portfolio
- * GSAP + ScrollTrigger + Lenis. Choreographed, restrained, performant.
+ * GSAP + ScrollTrigger + Lenis. One scrolling system, transform/opacity only,
+ * one-shot reveals wherever possible, everything cleaned up on teardown.
  */
 document.addEventListener('DOMContentLoaded', () => {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const hasGsap = typeof gsap !== 'undefined';
+  const hasST = typeof ScrollTrigger !== 'undefined';
+  const animationsOn = hasGsap && hasST && !reduceMotion;
+
+  /* ------------------------------------------------------------------
+     SMOOTH SCROLL — single Lenis instance, driven by gsap.ticker
+  ------------------------------------------------------------------ */
+  if (hasGsap && hasST) gsap.registerPlugin(ScrollTrigger);
 
   let lenis = null;
-  if (!reduceMotion && typeof Lenis !== 'undefined') {
-    lenis = new Lenis({ duration: 1.05, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true, smoothTouch: false });
-    if (typeof ScrollTrigger !== 'undefined') lenis.on('scroll', ScrollTrigger.update);
+  if (!reduceMotion && typeof Lenis !== 'undefined' && hasGsap) {
+    lenis = new Lenis({
+      duration: 1.05,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false
+    });
+    if (hasST) lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
   }
@@ -18,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = typeof target === 'string' ? document.querySelector(target) : target;
     if (!el) return;
     if (lenis) lenis.scrollTo(el, { offset: -60, duration: 1.4 });
-    else el.scrollIntoView({ behavior: 'smooth' });
+    else el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   };
 
   // Intercept anchor clicks for smooth scroll
@@ -32,81 +46,105 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  initCurtain(reduceMotion);
-  initMagnetic(isDesktop);
+  initCurtain();
+  initMagnetic();
   initHeader();
-  initMobileMenu(lenis);
-  if (typeof gsap !== 'undefined' && !reduceMotion) initScrollAnimations();
-  else revealAllInstant();
-  initModal(lenis);
+  initMobileMenu();
+
+  // All scroll-driven animation lives inside one gsap.context for clean teardown
+  let ctx = null;
+  if (animationsOn) {
+    ctx = gsap.context(() => initScrollAnimations());
+  } else {
+    revealAllInstant();
+  }
+
+  initModal();
   initYear();
+
+  // Teardown: release every ScrollTrigger/tween when the page goes away
+  window.addEventListener('pagehide', () => { ctx?.revert(); }, { once: true });
 
   /* ------------------------------------------------------------------
      LOAD CURTAIN + HERO INTRO
   ------------------------------------------------------------------ */
-  function initCurtain(reduceMotion) {
+  function initCurtain() {
     const curtain = document.getElementById('curtain');
-    const lines = document.querySelectorAll('.hero-title .line, .hero-statement .hs-line');
-    const fades = document.querySelectorAll('.hero .reveal-fade');
+    if (!curtain) return;
 
-    if (reduceMotion || typeof gsap === 'undefined') {
-      curtain?.remove();
-      return;
-    }
+    if (!animationsOn) { curtain.remove(); return; }
+
+    const lines = document.querySelectorAll('.hero-title .line, .hero-grid .line');
+    const fades = document.querySelectorAll('.hero .reveal-fade');
+    const plate = document.querySelector('.hero-plate');
 
     gsap.set(lines, { yPercent: 110 });
     gsap.set(fades, { opacity: 0, y: 16 });
+    if (plate) gsap.set(plate, { opacity: 0, y: 26 });
 
     window.addEventListener('load', () => {
       const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
       tl.to(curtain, { yPercent: -100, duration: 0.9, ease: 'power3.inOut' })
-        .add(() => curtain.style.display = 'none')
-        .to('.hero-title .line', { yPercent: 0, duration: 1.3, stagger: 0.09 }, '-=0.35')
-        .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, '-=0.8');
+        .add(() => { curtain.style.display = 'none'; })
+        .to('.hero-title .line', { yPercent: 0, duration: 1.3 }, '-=0.35')
+        .to('.hero-grid .line', { yPercent: 0, duration: 1.1, stagger: 0.08 }, '-=1.05')
+        .to(fades, { opacity: 1, y: 0, duration: 0.9, stagger: 0.08 }, '-=0.7')
+        .to(plate, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }, '-=0.85');
     });
 
     // Failsafe: never trap the user behind the curtain
-    setTimeout(() => { if (curtain && curtain.style.display !== 'none') { curtain.style.display = 'none'; gsap.set([lines, fades], { clearProps: 'all' }); } }, 3500);
+    setTimeout(() => {
+      if (curtain.style.display !== 'none') {
+        curtain.style.display = 'none';
+        gsap.set([lines, fades, plate], { clearProps: 'all' });
+      }
+    }, 3500);
   }
 
   /* ------------------------------------------------------------------
-     MAGNETIC ELEMENTS
+     MAGNETIC — restricted to the nav CTA only (one mousemove listener)
   ------------------------------------------------------------------ */
-  function initMagnetic(isDesktop) {
-    if (!isDesktop || typeof gsap === 'undefined') return;
+  function initMagnetic() {
+    if (!finePointer || !animationsOn) return;
     document.querySelectorAll('.magnetic').forEach(el => {
       const xTo = gsap.quickTo(el, 'x', { duration: 0.35, ease: 'power3.out' });
       const yTo = gsap.quickTo(el, 'y', { duration: 0.35, ease: 'power3.out' });
+      let rect = null;
+      el.addEventListener('mouseenter', () => {
+        rect = el.getBoundingClientRect();
+      });
       el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        xTo((e.clientX - r.left - r.width / 2) * 0.28);
-        yTo((e.clientY - r.top - r.height / 2) * 0.28);
+        if (!rect) return;
+        xTo((e.clientX - rect.left - rect.width / 2) * 0.28);
+        yTo((e.clientY - rect.top - rect.height / 2) * 0.28);
       });
       el.addEventListener('mouseleave', () => {
+        rect = null;
         gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
       });
     });
   }
 
   /* ------------------------------------------------------------------
-     HEADER SCROLL BEHAVIOR
+     HEADER — passive scroll listener
   ------------------------------------------------------------------ */
   function initHeader() {
     const header = document.getElementById('site-header');
-    let lastY = 0, ticking = false;
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        header.classList.toggle('scrolled', y > 40);
-        // hide on scroll down past hero, show on scroll up
-        if (y > window.innerHeight * 0.9 && y > lastY + 6) header.classList.add('hidden-nav');
-        else if (y < lastY - 6 || y <= window.innerHeight * 0.9) header.classList.remove('hidden-nav');
-        lastY = y;
-        ticking = false;
-      });
-    }, { passive: true });
+    if (!header) return;
+
+      let lastY = 0, ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const y = window.scrollY;
+          header.classList.toggle('scrolled', y > 40);
+          if (y > window.innerHeight * 0.9 && y > lastY + 6) header.classList.add('hidden-nav');
+          else if (y < lastY - 6 || y <= window.innerHeight * 0.9) header.classList.remove('hidden-nav');
+          lastY = y;
+          ticking = false;
+        });
+      }, { passive: true });
 
     // Active nav indicator
     const navLinks = [...document.querySelectorAll('[data-nav]')];
@@ -126,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------
      MOBILE MENU
   ------------------------------------------------------------------ */
-  function initMobileMenu(lenis) {
+  function initMobileMenu() {
     const menu = document.getElementById('mobile-menu');
     const toggle = document.getElementById('menu-toggle');
     const closeBtn = document.getElementById('menu-close');
@@ -137,7 +175,9 @@ document.addEventListener('DOMContentLoaded', () => {
       menu.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
       lenis?.stop(); document.body.style.overflow = 'hidden';
-      if (typeof gsap !== 'undefined') gsap.fromTo(menu.querySelectorAll('.mobile-nav a'), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.07, delay: 0.25, ease: 'power3.out' });
+      if (animationsOn) gsap.fromTo(menu.querySelectorAll('.mobile-nav a'),
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7, stagger: 0.07, delay: 0.25, ease: 'power3.out', clearProps: 'all' });
     };
     const close = () => {
       menu.classList.remove('open');
@@ -148,21 +188,53 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle?.addEventListener('click', open);
     closeBtn?.addEventListener('click', close);
     menu.querySelectorAll('[data-mobile-link]').forEach(l => l.addEventListener('click', close));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    // Single shared Escape handler for menu + modal
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      if (!menu.classList.contains('open')) return;
+      const modal = document.getElementById('project-modal');
+      if (modal && !modal.hidden) return; // modal handler deals with it
+      close();
+    });
   }
 
   /* ------------------------------------------------------------------
-     SCROLL ANIMATIONS
+     WORD SPLITTER — wraps words in overflow-hidden masks for reveals
+  ------------------------------------------------------------------ */
+  function splitWords(el, masked) {
+    const words = el.textContent.trim().split(/\s+/);
+    el.textContent = '';
+    const frag = document.createDocumentFragment();
+    words.forEach((w, i) => {
+      if (masked) {
+        const mask = document.createElement('span');
+        mask.className = 'w-mask';
+        const word = document.createElement('span');
+        word.className = 'word';
+        word.textContent = w;
+        mask.appendChild(word);
+        frag.appendChild(mask);
+      } else {
+        const word = document.createElement('span');
+        word.className = 'word';
+        word.textContent = w;
+        frag.appendChild(word);
+      }
+      if (i < words.length - 1) frag.appendChild(document.createTextNode(' '));
+    });
+    el.appendChild(frag);
+    return el.querySelectorAll('.word');
+  }
+
+  /* ------------------------------------------------------------------
+     SCROLL ANIMATIONS — one-shot reveals first, scrub effects desktop-only
   ------------------------------------------------------------------ */
   function initScrollAnimations() {
-    if (typeof ScrollTrigger === 'undefined') return;
-    gsap.registerPlugin(ScrollTrigger);
-
     const mm = gsap.matchMedia();
 
-    // ---- All sizes: one-shot reveals (play once, then stop doing work) ----
-    // Masked line reveals for big headings
-    document.querySelectorAll('.work-heading, .about-statement, .contact-title').forEach(h => {
+    // ---- Masked line reveals for big section headings ----
+    document.querySelectorAll('.work-heading, .about-heading, .contact-title').forEach(h => {
       const lines = h.querySelectorAll('.reveal-line');
       gsap.from(lines, {
         yPercent: 110, duration: 1.05, stagger: 0.09, ease: 'power4.out',
@@ -170,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Generic soft reveals
+    // ---- Generic soft reveals ----
     document.querySelectorAll('.reveal-fade').forEach(el => {
       if (el.closest('.hero')) return; // hero handled by intro timeline
       gsap.from(el, {
@@ -179,41 +251,72 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Project media: clip reveal (one-shot) + info cascade
+    // ---- Project scenes: clip reveal, image settle, word-by-word titles ----
     document.querySelectorAll('.project').forEach(project => {
-      const media = project.querySelector('.media-frame');
+      const frame = project.querySelector('.media-frame');
+      const img = project.querySelector('.media-frame img');
       const info = project.querySelector('.project-info');
+      const title = project.querySelector('[data-split]');
 
-      if (media) {
-        gsap.fromTo(media,
-          { clipPath: 'inset(6% 3% 6% 3%)' },
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'power3.out',
-            scrollTrigger: { trigger: project, start: 'top 80%', once: true } }
+      if (frame) {
+        gsap.fromTo(frame,
+          { clipPath: 'inset(10% 5% 10% 5%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power3.out',
+            scrollTrigger: { trigger: project, start: 'top 78%', once: true },
+            onComplete: () => gsap.set(frame, { clearProps: 'clipPath' }) }
         );
       }
+      // Landscape imagery is oversized in CSS (116% height) — scroll parallax
+      // is applied desktop-only further down. No per-image tween here.
+
+      if (title) {
+        const words = splitWords(title, true);
+        gsap.from(words, {
+          yPercent: 115, duration: 0.9, stagger: 0.07, ease: 'power4.out',
+          scrollTrigger: { trigger: title, start: 'top 86%', once: true },
+          onComplete: () => gsap.set(words, { clearProps: 'transform' })
+        });
+      }
+
       if (info) {
-        gsap.from(info.children, {
-          y: 30, opacity: 0, duration: 0.75, stagger: 0.06, ease: 'power3.out',
-          scrollTrigger: { trigger: info, start: 'top 84%', once: true }
+        // Title & ghost numeral run their own animations — exclude them here
+        const cascade = [...info.children].filter(el =>
+          !el.matches('[data-split], .project-num'));
+        gsap.from(cascade, {
+          y: 28, opacity: 0, duration: 0.75, stagger: 0.06, ease: 'power3.out',
+          scrollTrigger: { trigger: info, start: 'top 84%', once: true },
+          onComplete: () => gsap.set(cascade, { clearProps: 'transform,opacity' })
         });
       }
     });
 
-    // ---- Desktop only: lightweight scrub effects (transform-only) ----
-    mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
-      const heroTl = gsap.to('.hero-frame', {
-        yPercent: -10, opacity: 0.3, ease: 'none',
-        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
-      });
+    // ---- About quote: progressive word reveal tied to scroll ----
+    const quote = document.querySelector('.about-quote[data-scrub]');
+    if (quote) {
+      const words = splitWords(quote, false);
+      gsap.fromTo(words,
+        { opacity: 0.12 },
+        { opacity: 1, stagger: 0.05, ease: 'none',
+          scrollTrigger: { trigger: quote, start: 'top 82%', end: 'bottom 55%', scrub: true } }
+      );
+    }
 
-      const stripTl = gsap.to('.hero-parallax-strip', {
+    // ---- Desktop only: lightweight scrub effects (transform/opacity only) ----
+    mm.add('(min-width: 1025px) and (prefers-reduced-motion: no-preference)', () => {
+      const tweens = [];
+
+      tweens.push(gsap.to('.hero-frame', {
+        yPercent: -8, opacity: 0.35, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      }));
+
+      tweens.push(gsap.to('.hero-parallax-strip', {
         xPercent: -12, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
-      });
+      }));
 
       return () => {
-        heroTl.scrollTrigger?.kill(); heroTl.kill();
-        stripTl.scrollTrigger?.kill(); stripTl.kill();
+        tweens.forEach(t => { t.scrollTrigger?.kill(); t.kill(); });
       };
     });
 
@@ -225,9 +328,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => ScrollTrigger.refresh());
   }
 
-  function reduceMotionCheck() {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
   function revealAllInstant() {
     document.querySelectorAll('.line-mask .line, .reveal-line').forEach(el => el.style.transform = 'none');
     document.querySelectorAll('.reveal-fade').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
@@ -329,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  function initModal(lenis) {
+  function initModal() {
     const modal = document.getElementById('project-modal');
     const panel = modal?.querySelector('.modal-panel');
     const area = document.getElementById('modal-content-area');
@@ -365,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
       modal.hidden = false;
       requestAnimationFrame(() => {
         modal.style.opacity = '1';
-        if (typeof gsap !== 'undefined') gsap.fromTo(panel, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out' });
+        if (animationsOn) gsap.fromTo(panel, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out', clearProps: 'all' });
       });
       lenis?.stop(); document.body.style.overflow = 'hidden';
       closeBtn.focus();
