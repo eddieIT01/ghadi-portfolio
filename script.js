@@ -318,6 +318,14 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 }
       }));
 
+      const portrait = document.querySelector('.hero-portrait');
+      if (portrait) {
+        tweens.push(gsap.to(portrait, {
+          y: -60, scale: 0.95, ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+        }));
+      }
+
       return () => {
         tweens.forEach(t => { t.scrollTrigger?.kill(); t.kill(); });
       };
